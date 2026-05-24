@@ -1,0 +1,29 @@
+{
+  "name": "flowy-test",
+  "version": "1.0.0",
+  "description": "A Test Framework which runs in local as well, with capabilities of different outputs.",
+  "keywords": [
+    "unittest",
+    "test",
+    "framework",
+    "flowy"
+  ],
+  "homepage": "https://github.com/MarcusJongste/Flowy-Test#readme",
+  "bugs": {
+    "url": "https://github.com/MarcusJongste/Flowy-Test/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcusJongste/Flowy-Test.git"
+  },
+  "license": "ISC",
+  "author": "Marcus Jongste",
+  "type": "commonjs",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npm index.ts"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
