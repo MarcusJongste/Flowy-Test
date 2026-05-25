@@ -1,0 +1,9 @@
+# Tests
+dist/
+*.test.ts
+
+# Source
+src/
+
+# Config files
+tsconfig.json

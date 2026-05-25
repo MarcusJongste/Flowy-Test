@@ -21,6 +21,7 @@
   "type": "commonjs",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "test": "npm index.ts",
     "postinstall": "node scripts/setup.ts"
   },
