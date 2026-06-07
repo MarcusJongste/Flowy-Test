@@ -1,0 +1,10 @@
+# Tests
+tests/
+*.test.ts
+
+# Source (only ship compiled dist)
+src/
+
+# Config files
+tsconfig.json
+.eslintrc
