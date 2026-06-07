@@ -1,4 +1,4 @@
-import { type test, type rootObj,type testResult } from "types";
+import { type test,type testResult } from "./types";
 
 const unitTests:test = {
     verifyOutcome: [
@@ -13,7 +13,7 @@ const unitTests:test = {
             }],
             expectedOutcome: {
                 source: 'verificationCode',
-                verificationCode: function (this: rootObj, outcome: testResult) {
+                verificationCode: function (outcome: testResult) {
                     return outcome.outcome === 'success' &&
                         outcome.expectedOutcome === true &&
                         outcome.realOutcome === true;
@@ -32,7 +32,7 @@ const unitTests:test = {
             }],
             expectedOutcome: {
                 source: 'verificationCode',
-                verificationCode: function (this: rootObj, outcome: testResult) {
+                verificationCode: function ( outcome: testResult) {
                     return outcome.outcome === 'failure' &&
                         outcome.expectedOutcome === true &&
                         outcome.realOutcome === false;

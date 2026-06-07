@@ -1,9 +1,7 @@
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 
-interface Config {
-
-}
+import { type Config } from '../src/types';
 
 const projectRoot = path.resolve(__dirname, '../../../');
 const configPath = path.join(projectRoot, 'flowytest.config.json');
@@ -12,7 +10,10 @@ if (fs.existsSync(configPath)) {
     process.exit(0);
 }
 const defaultConfig: Config = {
-
+    dirs: [],
+    ignore: [/index\.(ts|js)$/],
+    extensions: ['js', 'ts'],
+    testFilePattern:/test\.(ts|js)$/
 };
 
 fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));

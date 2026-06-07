@@ -1,13 +1,8 @@
 {
   "name": "flowy-test",
   "version": "1.0.0",
-  "description": "A Test Framework which runs in local as well, with capabilities of different outputs.",
-  "keywords": [
-    "unittest",
-    "test",
-    "framework",
-    "flowy"
-  ],
+  "description": "A test framework with support for browser and Node.js environments.",
+  "keywords": [ "unittest", "test", "framework", "flowy" ],
   "homepage": "https://github.com/MarcusJongste/Flowy-Test#readme",
   "bugs": {
     "url": "https://github.com/MarcusJongste/Flowy-Test/issues"
@@ -19,17 +14,40 @@
   "license": "ISC",
   "author": "Marcus Jongste",
   "type": "commonjs",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "browser": "./dist/browser.js",
+      "node": "./dist/node.js",
+      "default": "./dist/node.js"
+    }
+  },
+  "files": [ "dist" ],
   "scripts": {
-    "build": "tsc",
-    "test": "npm index.ts",
-    "postinstall": "node scripts/setup.ts"
+    "build": "webpack && tsc",
+    "test": "tsx src/index.ts",
+    "postinstall": "tsx scripts/setup.ts",
+    "prepare": "npm run build"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "typescript": "^6.0.3"
+    "@types/node": "^20.11.0",
+    "@types/webpack-env": "^1.18.8",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "tsx": "^4.22.3"
+    "ts-loader": "^9.5.1",
+    "tsx": "^4.7.0"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   }
 }
