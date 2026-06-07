@@ -1,8 +1,13 @@
 {
   "name": "flowy-test",
   "version": "1.0.0",
-  "description": "A test framework with support for browser and Node.js environments.",
-  "keywords": [ "unittest", "test", "framework", "flowy" ],
+  "description": "A test framework for Node.js and React projects.",
+  "keywords": [
+    "unittest",
+    "test",
+    "framework",
+    "flowy"
+  ],
   "homepage": "https://github.com/MarcusJongste/Flowy-Test#readme",
   "bugs": {
     "url": "https://github.com/MarcusJongste/Flowy-Test/issues"
@@ -19,14 +24,16 @@
   "exports": {
     ".": {
       "browser": "./dist/browser.js",
-      "node": "./dist/node.js",
-      "default": "./dist/node.js"
+      "default": "./dist/index.js"
     }
   },
-  "files": [ "dist" ],
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "webpack && tsc",
-    "test": "tsx src/index.ts",
+    "build": "tsc && webpack",
+    "build:node": "tsc",
+    "build:browser": "webpack",
     "postinstall": "tsx scripts/setup.ts",
     "prepare": "npm run build"
   },

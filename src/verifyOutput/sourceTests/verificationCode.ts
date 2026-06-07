@@ -5,8 +5,8 @@ L - Liskov Substitution Principle (LSP): Subtypes must be substitutable for thei
 I - Interface Segregation Principle (ISP): Clients should not be forced to depend on methods they do not use, encouraging smaller, specific interfaces rather than large, general ones.
 D - Dependency Inversion Principle (DIP): High-level modules should not depend on low-level modules; both should depend on abstractions (interfaces).
 */
-import { type expectedOutcomeType } from '../../types';
-function verificationCode( outcome: any, { verificationCode }: expectedOutcomeType): any {
+import { type expectedOutcome } from '../../types';
+function verificationCode(outcome: any, { verificationCode }: expectedOutcome): any {
     if (verificationCode === undefined) { return outcome; }
     return verificationCode(outcome);
 }
