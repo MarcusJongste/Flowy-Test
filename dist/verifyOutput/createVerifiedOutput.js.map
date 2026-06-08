@@ -1,0 +1,1 @@
+{"version":3,"file":"createVerifiedOutput.js","sourceRoot":"","sources":["../../src/verifyOutput/createVerifiedOutput.ts"],"names":[],"mappings":";;AAW4B,uCAAO;AATnC,SAAS,oBAAoB,CAAC,WAAgB,EAAE,eAAgC,EAAE,KAAa;IAC3F,OAAO;QACH,KAAK;QACL,OAAO,EAAE,WAAW,KAAK,eAAe,CAAC,KAAK,CAAC,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC,SAAS;QACtE,eAAe;QACf,WAAW;KACd,CAAA;AACL,CAAC"}

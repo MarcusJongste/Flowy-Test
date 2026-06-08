@@ -1,0 +1,1 @@
+{"version":3,"file":"error.d.ts","sourceRoot":"","sources":["../../../src/verifyOutput/sourceTests/error.ts"],"names":[],"mappings":"AAOA,OAAO,EAAE,KAAK,eAAe,EAAE,MAAM,aAAa,CAAC;AACnD,iBAAS,KAAK,CAAE,OAAO,EAAE,GAAG,EAAE,eAAe,EAAE,eAAe,GAAG,GAAG,CAEnE;AAED,OAAO,EACH,KAAK,IAAI,OAAO,EACnB,CAAA"}

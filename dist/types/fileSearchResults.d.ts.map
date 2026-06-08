@@ -1,0 +1,1 @@
+{"version":3,"file":"fileSearchResults.d.ts","sourceRoot":"","sources":["../../src/types/fileSearchResults.ts"],"names":[],"mappings":"AACA,UAAU,iBAAiB;IAEvB,CAAC,CAAC,EAAE,MAAM,GAAG;QAET,CAAC,CAAC,EAAE,MAAM,GAAG;YAET,CAAC,CAAC,EAAE,MAAM,GAAG,GAAG,CAAA;SACnB,CAAC;KACL,CAAC;CACL;AAED,OAAO,EACH,iBAAiB,IAAI,OAAO,EAC/B,CAAA"}

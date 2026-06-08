@@ -1,0 +1,1 @@
+{"version":3,"file":"root.d.ts","sourceRoot":"","sources":["../../../src/verifyOutput/sourceTests/root.ts"],"names":[],"mappings":"AAOA,OAAO,EAAE,KAAK,eAAe,EAAE,MAAM,aAAa,CAAC;AAEnD,iBAAS,IAAI,CAAC,IAAI,EAAE;IAAE,CAAC,CAAC,EAAE,MAAM,GAAG,GAAG,CAAA;CAAE,EAAE,OAAO,EAAE,GAAG,GAAG,SAAS,EAAE,EAAE,SAAS,EAAE,KAAK,EAAE,EAAE,eAAe,GAAG,GAAG,CAM9G;AAED,OAAO,EACH,IAAI,IAAI,OAAO,EAClB,CAAA"}
