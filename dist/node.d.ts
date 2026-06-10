@@ -1,6 +1,4 @@
 import { Config } from "./types";
-export declare const flowyTest: {
-    unitTest: (config?: Config) => Promise<void>;
-};
-export { flowyTest as default };
+declare const flowytest: Promise<void>;
+export { flowytest as default, type Config };
 //# sourceMappingURL=node.d.ts.map

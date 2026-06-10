@@ -45,7 +45,7 @@ const path = __importStar(require("path"));
  */
 function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
     return Promise.all(searchPaths.map((searchPath) => {
-        //get all directories from each given path
+        //get all directories\files from each given path
         const dirs = fs.readdirSync(searchPath, { withFileTypes: true });
         // loop through directories
         return Promise.all(dirs.map((entry) => {

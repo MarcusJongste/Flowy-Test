@@ -36,18 +36,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.flowyTest = void 0;
+exports.default = void 0;
 const getTestFiles_1 = __importDefault(require("./getTestData/getTestFiles"));
 const getTestDataBrowser_1 = __importDefault(require("./getTestData/getTestDataBrowser"));
 const path = __importStar(require("path"));
-const configAuto = path.resolve(process.cwd(), 'flowy.config.ts');
-exports.flowyTest = {
-    unitTest: (config) => {
-        return Promise.resolve(config !== null && config !== void 0 ? config : Promise.resolve(`${configAuto}`).then(s => __importStar(require(s))))
-            .then((finalConf) => {
-            console.log((0, getTestFiles_1.default)(finalConf, getTestDataBrowser_1.default));
-        });
-    }
-};
-exports.default = exports.flowyTest;
+const rootPath = path.resolve(__dirname, '..', '..', '..');
+const configAuto = path.resolve(rootPath, 'flowy.config.ts');
+const flowytest = Promise.resolve(Promise.resolve(`${configAuto}`).then(s => __importStar(require(s))))
+    .then((finalConf) => {
+    console.log((0, getTestFiles_1.default)(finalConf, getTestDataBrowser_1.default));
+});
+exports.default = flowytest;
 //# sourceMappingURL=node.js.map

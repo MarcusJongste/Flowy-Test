@@ -35,16 +35,33 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const defaultConfig = {
+const configContent = `import { Config } from 'flowy-test';
+/*
+ flowy-test will gather all functions found in the directory.
+ it will also find all test files matching the testFilePattern.
+ and match each testFile function unittest to the function.
+ any function without unittest is removed
+ then flowy-test will run all unittests
+ after you can choose how to process the tests
+ 1. throw error
+ 2. have custom code to display ui
+ 3. ...
+*/
+const config: Config = {
+    // write here the directories to test 
     dirs: [],
+    // files to ignore
     ignore: [/index\.(ts|js)$/],
+    // file extension to check
     extensions: ['js', 'ts'],
+    // which files are tests
     testFilePattern: /test\.(ts|js)$/
 };
+export default config;`;
 const projectRoot = path.resolve(__dirname, '..', '..', '..');
 const configPath = path.resolve(projectRoot, 'flowytest.config.json');
 if (!fs.existsSync(configPath)) {
-    fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));
+    fs.writeFileSync(configPath, JSON.stringify(configContent, null, 2));
     console.log('created flowytest.config.json');
 }
 else {
