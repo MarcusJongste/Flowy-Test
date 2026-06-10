@@ -3,7 +3,7 @@ import * as path from 'path';
 
 import { type Config } from '../src/types';
 
-const configPath = path.resolve(process.cwd(), 'flowytest.config.json');
+const configPath = path.resolve('flowytest.config.json');
 if (fs.existsSync(configPath)) {
     console.log('Config already exists, skipping flowytest.config creation');
     process.exit(0);
