@@ -29,7 +29,7 @@ export default config;`;
 const projectRoot = path.resolve(__dirname, '..', '..', '..');
 const configPath = path.resolve(projectRoot, 'flowytest.config.json');
 if (!fs.existsSync(configPath)) {
-    fs.writeFileSync(configPath, JSON.stringify(configContent, null, 2));
+    fs.writeFileSync(configPath, configContent);
     console.log('created flowytest.config.json');
 } else {
     console.log('Config already exists, skipping flowytest.config creation');
