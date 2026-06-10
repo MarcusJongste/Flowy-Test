@@ -12,7 +12,7 @@ import {type fileSearchResults } from '../types';
 function searchDir(searchPaths: Array<string>, extensions: Array<string>, testFilePattern: RegExp, ignore: Array<RegExp> = []): Promise<fileSearchResults> {
 
     return Promise.all(searchPaths.map((searchPath) => {
-        //get all directories from each given path
+        //get all directories\files from each given path
         const dirs = fs.readdirSync(searchPath, { withFileTypes: true });
         // loop through directories
         return Promise.all(dirs.map((entry) => {
