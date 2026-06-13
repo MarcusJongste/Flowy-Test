@@ -50,7 +50,7 @@ const configContent = `import { Config } from 'flowy-test';
 const config: Config = {
     // write here the directories to test 
     dirs: [],
-    // files to ignore
+    // RegExp patterns for files to ignore
     ignore: [/index\.(ts|js)$/],
     // file extension to check
     extensions: ['js', 'ts'],
@@ -59,7 +59,7 @@ const config: Config = {
 };
 export default config;`;
 const projectRoot = path.resolve(__dirname, '..', '..', '..');
-const configPath = path.resolve(projectRoot, 'flowytest.config.json');
+const configPath = path.resolve(projectRoot, 'flowytest.config.js');
 if (!fs.existsSync(configPath)) {
     fs.writeFileSync(configPath, configContent);
     console.log('created flowytest.config.json');

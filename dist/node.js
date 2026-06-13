@@ -40,9 +40,11 @@ exports.default = void 0;
 const getTestFiles_1 = __importDefault(require("./getTestData/getTestFiles"));
 const getTestDataBrowser_1 = __importDefault(require("./getTestData/getTestDataBrowser"));
 const path = __importStar(require("path"));
-const rootPath = path.resolve(__dirname, '..', '..', '..');
+const url_1 = require("url");
+const rootPath = path.resolve(__dirname, '..');
 const configAuto = path.resolve(rootPath, 'flowy.config.ts');
-const flowytest = Promise.resolve(Promise.resolve(`${configAuto}`).then(s => __importStar(require(s))))
+console.log('starting node test');
+const flowytest = Promise.resolve(Promise.resolve(`${(0, url_1.pathToFileURL)(configAuto).href}`).then(s => __importStar(require(s))))
     .then((finalConf) => {
     console.log((0, getTestFiles_1.default)(finalConf, getTestDataBrowser_1.default));
 });

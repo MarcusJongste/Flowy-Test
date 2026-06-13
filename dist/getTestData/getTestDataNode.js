@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = searchDir;
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
+const url_1 = require("url");
 /**
  * searchDir goes through each given directory and fetches all functions
  * @param {string[]} searchPaths each path to search
@@ -61,7 +62,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     }
                     else {
                         // it's a matching file
-                        return Promise.resolve(`${fullPath}`).then(s => __importStar(require(s))).then((mod) => {
+                        return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
                             return { [searchPath]: { [entry.name]: mod } };
                         });
                     }
