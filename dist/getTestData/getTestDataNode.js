@@ -79,6 +79,9 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             };
         });
     })).then((namespaceArray) => {
+        if (namespaceArray.length === 0) {
+            return {};
+        }
         return namespaceArray.reduce((ret, namespace) => {
             return { ...ret, ...namespace };
         });
