@@ -42,7 +42,7 @@ const getTestDataBrowser_1 = __importDefault(require("./getTestData/getTestDataB
 const path = __importStar(require("path"));
 const url_1 = require("url");
 const rootPath = path.resolve(__dirname, '..');
-const configAuto = path.resolve(rootPath, 'flowy.config.js');
+const configAuto = path.resolve(rootPath, 'flowytest.config.js');
 console.log('starting node test');
 const flowytest = Promise.resolve(Promise.resolve(`${(0, url_1.pathToFileURL)(configAuto).href}`).then(s => __importStar(require(s))))
     .then((finalConf) => {
