@@ -13,6 +13,7 @@ const sortModuleExportToTestFile_1 = __importDefault(require("./sortModuleExport
 function getTestFiles(config, searchDir) {
     var _a, _b, _c;
     const dirs = config.dirs;
+    console.log(`dirs : ${dirs.length}`);
     const extensions = (_a = config.extensions) !== null && _a !== void 0 ? _a : ['.ts'];
     const ignore = (_b = config.ignore) !== null && _b !== void 0 ? _b : [];
     const testFilePattern = (_c = config.testFilePattern) !== null && _c !== void 0 ? _c : /\.test\.ts$/;
