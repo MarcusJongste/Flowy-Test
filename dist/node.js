@@ -46,7 +46,10 @@ const configAuto = path.resolve(rootPath, 'flowytest.config.js');
 console.log('starting node test');
 const flowytest = Promise.resolve(Promise.resolve(`${(0, url_1.pathToFileURL)(configAuto).href}`).then(s => __importStar(require(s))))
     .then((finalConf) => {
-    console.log((0, getTestFiles_1.default)(finalConf.default, getTestDataNode_1.default));
+    (0, getTestFiles_1.default)(finalConf.default, getTestDataNode_1.default)
+        .then((testResult) => {
+        console.log(testResult);
+    });
 });
 exports.default = flowytest;
 //# sourceMappingURL=node.js.map
