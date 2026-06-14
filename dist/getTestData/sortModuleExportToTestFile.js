@@ -3,29 +3,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTestFiles;
 //interface of namespaces needed
 function createTestFiles(searchResults, testFilePattern) {
-    var _a;
+    var _a, _b;
     const ret = {};
+    let testFiles = {};
+    // each directory passed from config dirs
     for (const [searchDir, files] of Object.entries(searchResults)) {
-        const testMap = new Map();
-        for (const [fileName, file] of Object.entries(files)) {
-            for (const [module, obj] of Object.entries(file)) {
-                const mapValue = (_a = testMap.get(fileName)) !== null && _a !== void 0 ? _a : {
-                    f: () => { }, unitTests: []
-                };
+        const retDir = {};
+        // each file found in this dir
+        for (const [fullPath, file] of Object.entries(files)) {
+            // filter out the folder
+            const folder = (_b = (_a = /.+\\/.exec(fullPath)) === null || _a === void 0 ? void 0 : _a.at(-1)) !== null && _b !== void 0 ? _b : 'UNKNOWN', testFile = testFilePattern.test(fullPath);
+            // for each export in module
+            for (const [exportName, variable] of Object.entries(file)) {
+                // check if entry exists for module name else create new entry
+                retDir[folder] = retDir[folder] || {};
                 // is testFile
-                if (testFilePattern.test(fileName)) {
-                    mapValue.unitTests = [...mapValue.unitTests, ...obj];
+                if (testFile) {
+                    console.log(`testFile : ${exportName}`);
+                    testFiles = { ...testFiles, ...variable };
                 }
                 else {
-                    if (typeof obj === 'function') {
-                        mapValue.f = obj;
+                    // if function create a testFile
+                    if (typeof variable === 'function') {
+                        console.log(`${exportName} registrated under ${folder}`);
+                        retDir[folder][exportName] = { f: variable, unitTests: [] };
                     }
                 }
-                testMap.set(fileName, mapValue);
+            }
+            for (const [testFuncName, unitTests] of Object.entries(testFiles)) {
+                for (const [funcName, testFile] of Object.entries(retDir[folder])) {
+                    if (testFuncName === funcName) {
+                        // if we found the function for matching unitTests then assign them and delete from unitTest object
+                        testFile.unitTests = [...testFile.unitTests, ...unitTests];
+                        delete testFiles[testFuncName];
+                        break;
+                    }
+                }
             }
         }
-        ret[searchDir] = testMap;
+        ret[searchDir] = retDir;
     }
+    console.log(ret);
     return ret;
 }
 //# sourceMappingURL=sortModuleExportToTestFile.js.map

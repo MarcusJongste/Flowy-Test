@@ -60,23 +60,22 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                 }
                 else {
                     // if extension is correct
-                    if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name))) {
+                    if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name)) || testFilePattern.test(entry.name)) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
                             return { [fullPath]: { [entry.name]: mod } };
                         });
                     }
+                    return undefined;
                 }
             }
         })) // remove undefined, and merge results
             .then((mods) => {
-            return {
-                [searchPath]: mods
-                    .filter((mod) => !!mod)
-                    .reduce((ret, b) => {
-                    return { ...ret, ...b };
-                }, {})
-            };
+            return mods
+                .filter((mod) => !!mod)
+                .reduce((ret, b) => {
+                return { ...ret, ...b };
+            }, {});
         });
     })).then((namespaceArray) => {
         if (namespaceArray.length === 0) {
