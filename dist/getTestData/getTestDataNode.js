@@ -49,9 +49,9 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
         //get all directories\files from each given path
         const dirs = fs.readdirSync(searchPath, { withFileTypes: true });
         console.log(`searchPath : ${searchPath}`);
-        console.log(`found dirs: ${dirs}`);
         // loop through directories
         return Promise.all(dirs.map((entry) => {
+            console.log(`entry: ${entry}`);
             // if not on ignore list
             if (!ignore.some(ig => ig.test(entry.name))) {
                 // if extension is correct
