@@ -51,7 +51,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
         console.log(`searchPath : ${searchPath}`);
         // loop through directories
         return Promise.all(dirs.map((entry) => {
-            console.log(`entry: ${entry}`);
+            console.log(`entry: ${entry.name}`);
             // if not on ignore list
             if (!ignore.some(ig => ig.test(entry.name))) {
                 // if extension is correct
