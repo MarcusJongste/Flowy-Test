@@ -74,7 +74,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
         })) // remove undefined, and merge results
             .then((mods) => {
             return {
-                searchPath: mods
+                [searchPath]: mods
                     .filter((mod) => !!mod)
                     .reduce((ret, b) => {
                     return { ...ret, ...b };
