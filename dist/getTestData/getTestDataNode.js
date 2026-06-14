@@ -54,16 +54,17 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             console.log(`entry: ${entry.name}`);
             // if not on ignore list
             if (!ignore.some(ig => ig.test(entry.name))) {
-                // if extension is correct
-                if (extensions.some(extension => new RegExp(String.raw `\s${extension}$\s`).test(entry.name))) {
-                    // create fullPath
-                    const fullPath = path.join(searchPath, entry.name);
-                    // if it's a directory then search more
-                    if (entry.isDirectory()) {
-                        console.log(`found directory ${entry.name}`);
-                        return searchDir([fullPath], extensions, testFilePattern, ignore);
-                    }
-                    else {
+                console.log(`valid file`);
+                // create fullPath
+                const fullPath = path.join(searchPath, entry.name);
+                // if it's a directory then search more
+                if (entry.isDirectory()) {
+                    console.log(`found directory ${entry.name}`);
+                    return searchDir([fullPath], extensions, testFilePattern, ignore);
+                }
+                else {
+                    // if extension is correct
+                    if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name))) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
                             console.log(`found file ${entry.name}`);
