@@ -6,6 +6,7 @@ function createTestFiles(searchResults, testFilePattern) {
     var _a, _b;
     const ret = {};
     let testFiles = {};
+    console.log(searchResults);
     // each directory passed from config dirs
     for (const [searchDir, files] of Object.entries(searchResults)) {
         const retDir = {};
