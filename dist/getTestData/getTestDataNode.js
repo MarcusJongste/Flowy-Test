@@ -58,11 +58,13 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     const fullPath = path.join(searchPath, entry.name);
                     // if it's a directory then search more
                     if (entry.isDirectory()) {
+                        console.log(`found directory ${entry.name}`);
                         return searchDir([fullPath], extensions, testFilePattern, ignore);
                     }
                     else {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
+                            console.log(`found file ${entry.name}`);
                             return { [searchPath]: { [entry.name]: mod } };
                         });
                     }
