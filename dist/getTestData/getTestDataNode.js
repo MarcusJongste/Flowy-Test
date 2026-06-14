@@ -48,18 +48,14 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
     return Promise.all(searchPaths.map((searchPath) => {
         //get all directories\files from each given path
         const dirs = fs.readdirSync(searchPath, { withFileTypes: true });
-        console.log(`searchPath : ${searchPath}`);
         // loop through directories
         return Promise.all(dirs.map((entry) => {
-            console.log(`entry: ${entry.name}`);
             // if not on ignore list
             if (!ignore.some(ig => ig.test(entry.name))) {
-                console.log(`valid file`);
                 // create fullPath
                 const fullPath = path.join(searchPath, entry.name);
                 // if it's a directory then search more
                 if (entry.isDirectory()) {
-                    console.log(`found directory ${entry.name}`);
                     return searchDir([fullPath], extensions, testFilePattern, ignore);
                 }
                 else {
@@ -67,8 +63,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name))) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
-                            console.log(`found file ${entry.name}`);
-                            return { [searchPath]: { [entry.name]: mod } };
+                            return { [fullPath]: { [entry.name]: mod } };
                         });
                     }
                 }
