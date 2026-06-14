@@ -50,10 +50,12 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
         const dirs = fs.readdirSync(searchPath, { withFileTypes: true });
         // loop through directories
         return Promise.all(dirs.map((entry) => {
+            var _a, _b;
             // if not on ignore list
             if (!ignore.some(ig => ig.test(entry.name))) {
                 // create fullPath
                 const fullPath = path.join(searchPath, entry.name);
+                const folder = (_b = (_a = /.+\\/.exec(fullPath)) === null || _a === void 0 ? void 0 : _a.at(-1)) !== null && _b !== void 0 ? _b : 'UNKNOWN';
                 // if it's a directory then search more
                 if (entry.isDirectory()) {
                     return searchDir([fullPath], extensions, testFilePattern, ignore);
@@ -63,7 +65,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name)) || testFilePattern.test(entry.name)) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
-                            return { [fullPath]: { [entry.name]: mod } };
+                            return { [folder]: { [entry.name]: mod } };
                         });
                     }
                     return undefined;
@@ -71,11 +73,13 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             }
         })) // remove undefined, and merge results
             .then((mods) => {
-            return mods
-                .filter((mod) => !!mod)
-                .reduce((ret, b) => {
-                return { ...ret, ...b };
-            }, {});
+            return {
+                searchPath: mods
+                    .filter((mod) => !!mod)
+                    .reduce((ret, b) => {
+                    return { ...ret, ...b };
+                }, {})
+            };
         });
     })).then((namespaceArray) => {
         if (namespaceArray.length === 0) {
