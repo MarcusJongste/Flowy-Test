@@ -56,6 +56,9 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                 // create fullPath
                 const fullPath = path.join(searchPath, entry.name);
                 const folder = (_b = (_a = fullPath.split('\\')) === null || _a === void 0 ? void 0 : _a.at(-2)) !== null && _b !== void 0 ? _b : 'UNKNOWN';
+                if (folder === 'UNKNOWN') {
+                    console.log(`cannot read folder ${fullPath}`);
+                }
                 // if it's a directory then search more
                 if (entry.isDirectory()) {
                     return searchDir([fullPath], extensions, testFilePattern, ignore)
@@ -72,12 +75,11 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                             return { [folder]: { [entry.name]: mod } };
                         });
                     }
-                    return undefined;
                 }
             }
+            return Promise.resolve(undefined);
         })) // remove undefined, and merge results
             .then((mods) => {
-            console.log(`mods:${mods}`);
             return {
                 [searchPath]: mods
                     .filter((mod) => !!mod)
