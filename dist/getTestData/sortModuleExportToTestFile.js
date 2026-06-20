@@ -14,7 +14,7 @@ function createTestFiles(searchResults, testFilePattern) {
                     // if testFile
                     if (isTest(testFilePattern, exp, fileName)) {
                         Object.entries(exp).forEach(([functionName, unitTest]) => {
-                            retDir.testFiles[`${funcPath}${functionName}`] = retDir.testFiles[`${funcPath}${functionName}`] ? [...retDir.testFiles[`${funcPath}${functionName}`], ...unitTest] : unitTest;
+                            retDir.testFiles[`${folderName}${functionName}`] = retDir.testFiles[`${funcPath}${functionName}`] ? [...retDir.testFiles[`${funcPath}${functionName}`], ...unitTest] : unitTest;
                         });
                     }
                     else if (typeof exp === 'function') {
@@ -29,10 +29,11 @@ function createTestFiles(searchResults, testFilePattern) {
         }, { testFiles: {}, fFiles: {} }))
             .then((filteredExport) => {
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
-                if (filteredExport.fFiles[pathName]) {
-                    testFile[pathName] = {
+                const result = /(.+\\)(\w+$)/.exec(pathName), [fullPath, folderName, functionName] = result && result.length > 2 ? result : [null, null, null], functionMatcher = new RegExp(`${folderName}.*${functionName}$`), func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
+                if (func) {
+                    testFile[func] = {
                         unitTests: unitTest,
-                        f: filteredExport.fFiles[pathName]
+                        f: filteredExport.fFiles[func]
                     };
                 }
                 return testFile;
