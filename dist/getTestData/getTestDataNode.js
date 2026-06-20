@@ -88,6 +88,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                         // @ts-ignore no idea but it says spread types can only be object, but it's all object
                         ret[folderName] = ret[folderName] ? modObj : { ...ret[folderName], ...modObj };
                     }
+                    console.log(ret);
                     return ret;
                 }, {})
             };
