@@ -58,14 +58,17 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                 const folder = (_b = (_a = fullPath.split('\\')) === null || _a === void 0 ? void 0 : _a.at(-2)) !== null && _b !== void 0 ? _b : 'UNKNOWN';
                 // if it's a directory then search more
                 if (entry.isDirectory()) {
-                    return searchDir([fullPath], extensions, testFilePattern, ignore);
+                    return searchDir([fullPath], extensions, testFilePattern, ignore)
+                        .then((searchResults) => {
+                        var _a, _b, _c;
+                        return (_c = (_b = (_a = Object.entries(searchResults)) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b[1]) !== null && _c !== void 0 ? _c : {};
+                    });
                 }
                 else {
                     // if extension is correct
                     if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name)) || testFilePattern.test(entry.name)) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
-                            console.log(`${folder} : ${entry.name}`);
                             return { [folder]: { [entry.name]: mod } };
                         });
                     }
@@ -74,11 +77,12 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             }
         })) // remove undefined, and merge results
             .then((mods) => {
-            console.log(mods);
+            console.log(`mods:${mods}`);
             return {
                 [searchPath]: mods
                     .filter((mod) => !!mod)
                     .reduce((ret, b) => {
+                    console.log(`b:${b}`);
                     return { ...ret, ...b };
                 }, {})
             };
@@ -88,7 +92,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             return {};
         }
         return namespaceArray.reduce((ret, namespace) => {
-            console.log(namespace);
+            console.log(`namespace:${namespace}`);
             return { ...ret, ...namespace };
         });
     });
