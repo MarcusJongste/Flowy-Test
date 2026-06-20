@@ -65,6 +65,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name)) || testFilePattern.test(entry.name)) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
+                            console.log(`${folder} : ${entry.name}`);
                             return { [folder]: { [entry.name]: mod } };
                         });
                     }
@@ -86,6 +87,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             return {};
         }
         return namespaceArray.reduce((ret, namespace) => {
+            console.log(namespace);
             return { ...ret, ...namespace };
         });
     });
