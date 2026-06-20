@@ -19,7 +19,6 @@ function createTestFiles(searchResults, testFilePattern) {
                     }
                     else if (typeof exp === 'function') {
                         const realKey = key === 'default' ? (_b = (_a = /[^.]+/.exec(fileName)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : fileName : key;
-                        console.log(realKey);
                         // if function
                         retDir.fFiles[`${funcPath}${realKey}`] = exp;
                     }
@@ -30,6 +29,7 @@ function createTestFiles(searchResults, testFilePattern) {
             .then((filteredExport) => {
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
                 const result = /(.+\\)(\w+$)/.exec(pathName), [fullPath, folderName, functionName] = result && result.length > 2 ? result : [null, null, null], functionMatcher = new RegExp(`${folderName}.*${functionName}$`), func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
+                console.log(`func:${func}`);
                 if (func) {
                     testFile[func] = {
                         unitTests: unitTest,
