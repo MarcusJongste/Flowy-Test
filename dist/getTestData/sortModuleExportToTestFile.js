@@ -19,6 +19,7 @@ function createTestFiles(searchResults, testFilePattern) {
                     }
                     else if (typeof exp === 'function') {
                         const realKey = key === 'default' ? (_b = (_a = /[^.]+/.exec(fileName)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : fileName : key;
+                        console.log(realKey);
                         // if function
                         retDir.fFiles[`${funcPath}${realKey}`] = exp;
                     }
