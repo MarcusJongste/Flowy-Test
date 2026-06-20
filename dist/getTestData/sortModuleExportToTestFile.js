@@ -14,7 +14,7 @@ function createTestFiles(searchResults, testFilePattern) {
                     // if testFile
                     if (isTest(testFilePattern, exp, fileName)) {
                         Object.entries(exp).forEach(([functionName, unitTest]) => {
-                            retDir.testFiles[`${folderName}${functionName}`] = retDir.testFiles[`${funcPath}${functionName}`] ? [...retDir.testFiles[`${funcPath}${functionName}`], ...unitTest] : unitTest;
+                            retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${funcPath}${functionName}`] ? [...retDir.testFiles[`${funcPath}${functionName}`], ...unitTest] : unitTest;
                         });
                     }
                     else if (typeof exp === 'function') {
