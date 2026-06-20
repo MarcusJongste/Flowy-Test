@@ -82,7 +82,8 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                 [searchPath]: mods
                     .filter((mod) => !!mod)
                     .reduce((ret, b) => {
-                    console.log(`b:${b}`);
+                    console.log(`b:`);
+                    console.log(b);
                     return { ...ret, ...b };
                 }, {})
             };
@@ -92,7 +93,8 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
             return {};
         }
         return namespaceArray.reduce((ret, namespace) => {
-            console.log(`namespace:${namespace}`);
+            console.log(`namespace:`);
+            console.log(namespace);
             return { ...ret, ...namespace };
         });
     });
