@@ -84,9 +84,11 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                 [searchPath]: mods
                     .filter((mod) => !!mod)
                     .reduce((ret, b) => {
-                    console.log(`b:`);
-                    console.log(b);
-                    return { ...ret, ...b };
+                    for (const [folderName, modObj] of Object.entries(b)) {
+                        // @ts-ignore no idea but it says spread types can only be object, but it's all object
+                        ret[folderName] = ret[folderName] ? modObj : { ...ret[folderName], ...modObj };
+                    }
+                    return ret;
                 }, {})
             };
         });
