@@ -83,15 +83,15 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     .reduce((ret, b) => {
                     for (const [folderName, modObj] of Object.entries(b)) {
                         // @ts-ignore no idea but it says spread types can only be object, but it's all object
-                        ret[folderName] = ret[folderName] ? modObj : { ...ret[folderName], ...modObj };
+                        ret[folderName] = ret[folderName] ? { ...ret[folderName], ...modObj } : modObj;
                     }
-                    console.log(ret);
                     return ret;
                 }, {})
             };
         });
     })).then((namespaceArray) => {
         if (namespaceArray.length === 0) {
+            console.log('empty namespaceArray');
             return {};
         }
         return namespaceArray.reduce((ret, namespace) => {
