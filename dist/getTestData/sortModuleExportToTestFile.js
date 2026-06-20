@@ -9,6 +9,7 @@ function createTestFiles(searchResults, testFilePattern) {
         return Promise.resolve(Object.entries(folders).reduce((retDir, [folderName, modules]) => {
             Object.entries(modules).forEach(([fileName, module]) => {
                 Object.entries(module).forEach(([key, exp]) => {
+                    var _a, _b;
                     const funcPath = `${folderName}\\${fileName}\\`;
                     // if testFile
                     if (isTest(testFilePattern, exp, fileName)) {
@@ -17,8 +18,9 @@ function createTestFiles(searchResults, testFilePattern) {
                         });
                     }
                     else if (typeof exp === 'function') {
+                        const realKey = key === 'default' ? (_b = (_a = /[^.]+/.exec(fileName)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : fileName : key;
                         // if function
-                        retDir.fFiles[`${funcPath}${key}`] = exp;
+                        retDir.fFiles[`${funcPath}${realKey}`] = exp;
                     }
                 });
             }, {});
@@ -26,7 +28,7 @@ function createTestFiles(searchResults, testFilePattern) {
         }, { testFiles: {}, fFiles: {} }))
             .then((filteredExport) => {
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
-                if (filteredExport.testFiles[pathName]) {
+                if (filteredExport.fFiles[pathName]) {
                     testFile[pathName] = {
                         unitTests: unitTest,
                         f: filteredExport.fFiles[pathName]
