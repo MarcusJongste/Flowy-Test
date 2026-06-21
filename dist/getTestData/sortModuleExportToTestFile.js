@@ -6,7 +6,7 @@ function createTestFiles(searchResults, testFilePattern) {
     // each directory passed from config dirs
     return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
         return Promise.resolve(Object.entries(folders).reduce((retDir, [fullPath, module]) => {
-            const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 2), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
+            const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 1), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
             Object.entries(module).forEach(([key, exp]) => {
                 var _a, _b;
                 if (isTest(testFilePattern, exp, fileName)) {
@@ -24,7 +24,7 @@ function createTestFiles(searchResults, testFilePattern) {
         }, { testFiles: {}, fFiles: {} }))
             .then((filteredExport) => {
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
-                const functionName = pathName.substring(pathName.lastIndexOf('\\') + 2), folderName = pathName.substring(0, pathName.lastIndexOf('\\')), functionMatcher = new RegExp(`${folderName}.*${functionName}$`), func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
+                const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1), folderName = pathName.substring(0, pathName.lastIndexOf('\\')), functionMatcher = new RegExp(`${folderName}.*${functionName}$`), func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
                 console.log(filteredExport.fFiles);
                 console.log(pathName);
                 console.log(`paths:${folderName} - ${functionName}`);
