@@ -19,10 +19,7 @@ function getTestFiles(config, searchDir) {
     const testFilePattern = (_c = config.testFilePattern) !== null && _c !== void 0 ? _c : /\.test\.ts$/;
     return searchDir(dirs, extensions, testFilePattern, ignore)
         .then((allFiles) => {
-        return (0, sortModuleExportToTestFile_1.default)(allFiles, testFilePattern)
-            .then((sortedTestFile) => {
-            console.log(sortedTestFile);
-        });
+        return (0, sortModuleExportToTestFile_1.default)(allFiles, testFilePattern);
     });
 }
 //# sourceMappingURL=getTestFiles.js.map

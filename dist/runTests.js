@@ -15,7 +15,12 @@ const runAfterScript_1 = __importDefault(require("./runAfterScript"));
 function runTests(testFiles) {
     return Promise.all(Object.entries(testFiles).map(([functionName, functionTestFile]) => {
         return runUnitTestCollection(functionTestFile, functionName);
-    }));
+    }))
+        .then((testResults) => {
+        return testResults.reduce((ret, b) => {
+            return [...ret, ...b];
+        }, []);
+    });
 }
 /**
  * runUnitTestCollection does each unitTest in order and only completes the next one after previous ended
