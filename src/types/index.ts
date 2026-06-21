@@ -1,5 +1,6 @@
 import  type unitTest  from './unitTest';
 import type testFile from './testFile';
+import type testFiles from './testFiles';
 import type expectedOutcome from './expectedOutcome';
 import type Config from './config'
 import type test from './test';
@@ -13,5 +14,6 @@ export {
     type expectedOutcome,
     type testFile,
     type Config,
-    type fileSearchResults
+    type fileSearchResults,
+    type testFiles
 }
