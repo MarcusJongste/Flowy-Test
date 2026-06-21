@@ -1,33 +1,61 @@
-import {  fileSearchResults, type testFile } from '../types';
+import unitTests from '../flowyTest.test';
+import {  fileSearchResults, unitTest, type testFiles, test } from '../types';
 
-//interface of namespaces needed
-function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegExp): { [k: string]: Map<string, testFile> } {
-    const ret: { [k: string]: Map<string, testFile> } = {};
-    for (const [searchDir, files] of Object.entries(searchResults)) {
-        const testMap = new Map<string, testFile>();
-        for (const [fileName, file] of Object.entries(files)) {
-            for (const [module, obj] of Object.entries(file)) {
-
-                const mapValue = testMap.get(fileName) ?? {
-                    f: () => { }, unitTests: []
-                };
-                // is testFile
-                if (testFilePattern.test(fileName)) {
-                    mapValue.unitTests = [...mapValue.unitTests, ...obj];
-                } else {
-                    if (typeof obj === 'function') {
-                        mapValue.f = obj;
-                    }
-                }
-                testMap.set(fileName, mapValue);
-            }
-
-        }
-        ret[searchDir] = testMap;
+interface tempTestFile {
+    testFiles: test,
+    fFiles: {
+        [k: string]: Function
     }
-    return ret;
 }
 
+//interface of namespaces needed
+function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegExp): Promise<testFiles> {
+
+    // each directory passed from config dirs
+    return Promise.all(Object.entries(searchResults).map(([searchDir,folders]) => {
+        return Promise.resolve(Object.entries(folders).reduce((retDir: tempTestFile, [fullPath, module]): tempTestFile => {
+            const fileName = fullPath.substring(fullPath.lastIndexOf('\\')+1),
+                folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
+            Object.entries(module).forEach(([key, exp]: [string, any]) => {
+                if (isTest(testFilePattern, exp, fileName)) {
+                    Object.entries(exp).forEach(([functionName, unitTest]: [string, unitTest[]]) => {
+                        retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
+                    });
+                } else if (typeof exp === 'function') {
+                    const realKey = exp.name ?? fileName.substring(0,fileName.indexOf('.'));
+                    // if function
+                    retDir.fFiles[`${fullPath}\\${realKey}`] = exp;
+                }
+            });
+            return retDir;
+        }, { testFiles: {}, fFiles: {}}))
+            .then((filteredExport) => {
+                return Object.entries(filteredExport.testFiles).reduce((testFile: testFiles, [pathName, unitTest]): testFiles => {
+                    const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1),
+                        folderName = pathName.substring(0, pathName.lastIndexOf('\\')),
+                        functionMatcher = new RegExp(`${folderName}.*${functionName}$`),
+                        func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
+                    if (func) {
+                        testFile[func] = {
+                            unitTests: unitTest,
+                            f: filteredExport.fFiles[func]
+                        }
+                    }
+                    return testFile;
+                }, {});
+            });
+    }))
+        .then((testFileArray: testFiles[]) => {
+            return testFileArray.reduce((ret, testFile) => {
+                return { ...ret, ...testFile };
+            }, {})
+        })
+}
+
+
+function isTest(testFilePattern: RegExp, module: test | { [k: string]: any }, fileName: string): module is test {
+    return testFilePattern.test(fileName);
+}
 export {
     createTestFiles as default
 }
