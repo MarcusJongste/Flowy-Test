@@ -67,7 +67,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                     if (extensions.some(extension => new RegExp(String.raw `${extension}$`).test(entry.name)) || testFilePattern.test(entry.name)) {
                         // it's a matching file
                         return Promise.resolve(`${(0, url_1.pathToFileURL)(fullPath).href}`).then(s => __importStar(require(s))).then((mod) => {
-                            return { [fullPath]: { [entry.name]: mod } };
+                            return { [fullPath]: mod };
                         });
                     }
                 }

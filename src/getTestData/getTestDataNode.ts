@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import {type fileSearchResults } from '../types';
-
+import { pathToFileURL } from 'url';
 /**
  * searchDir goes through each given directory and fetches all functions
  * @param {string[]} searchPaths each path to search
@@ -18,33 +18,40 @@ function searchDir(searchPaths: Array<string>, extensions: Array<string>, testFi
         return Promise.all(dirs.map((entry) => {
             // if not on ignore list
             if (!ignore.some(ig => ig.test(entry.name))) {
-                // if extension is correct
-                if (extensions.some(extension => new RegExp(String.raw`\s${extension}$\s`).test(entry.name))) {
-                    // create fullPath
-                    const fullPath = path.join(searchPath, entry.name);
-                    // if it's a directory then search more
-                    if (entry.isDirectory()) {
-                        return searchDir([fullPath], extensions, testFilePattern, ignore);
-                    } else {
+                // create fullPath
+                const fullPath = path.join(searchPath, entry.name);
+                // if it's a directory then search more
+                if (entry.isDirectory()) {
+                    return searchDir([fullPath], extensions, testFilePattern, ignore)
+                        .then((searchResults) => {
+                            return Object.entries(searchResults)?.[0]?.[1] ?? {};
+                        })
+                } else {
+                    // if extension is correct
+                    if (extensions.some(extension => new RegExp(String.raw`${extension}$`).test(entry.name)) || testFilePattern.test(entry.name)) {
                         // it's a matching file
-                        return import(fullPath)
+                        return import(pathToFileURL(fullPath).href)
                             .then((mod: { [k: string]: any }) => {
-                                return { [searchPath]: { [entry.name]: mod } }
+                                return { [fullPath]: mod  }
                             })
                     }
                 }
             }
+            return Promise.resolve(undefined);
         })) // remove undefined, and merge results
             .then((mods: Array<fileSearchResults | undefined>): fileSearchResults => {
                 return {
                     [searchPath]: mods
                         .filter((mod): mod is fileSearchResults => !!mod)
-                        .reduce((ret: { [k: string]: any }, b) => {
+                        .reduce((ret: fileSearchResults, b) => {
                             return { ...ret, ...b };
                         }, {})
                 }
             });
     })).then((namespaceArray) => {
+        if (namespaceArray.length === 0) {
+            return {};
+        }
         return namespaceArray.reduce((ret, namespace) => {
             return { ...ret, ...namespace };
         });
