@@ -8,14 +8,14 @@ function createTestFiles(searchResults, testFilePattern) {
         return Promise.resolve(Object.entries(folders).reduce((retDir, [fullPath, module]) => {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 1), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
             Object.entries(module).forEach(([key, exp]) => {
-                var _a, _b;
+                var _a;
                 if (isTest(testFilePattern, exp, fileName)) {
                     Object.entries(exp).forEach(([functionName, unitTest]) => {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
                     });
                 }
                 else if (typeof exp === 'function') {
-                    const realKey = key === 'default' ? (_b = (_a = /[^.]+/.exec(fileName)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : fileName : key;
+                    const realKey = (_a = exp.name) !== null && _a !== void 0 ? _a : fileName.substring(0, fileName.indexOf('.'));
                     // if function
                     retDir.fFiles[`${fullPath}\\${realKey}`] = exp;
                 }
