@@ -25,10 +25,6 @@ function createTestFiles(searchResults, testFilePattern) {
             .then((filteredExport) => {
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
                 const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1), folderName = pathName.substring(0, pathName.lastIndexOf('\\')), functionMatcher = new RegExp(`${folderName}.*${functionName}$`), func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
-                console.log(filteredExport.fFiles);
-                console.log(pathName);
-                console.log(`paths:${folderName} - ${functionName}`);
-                console.log(`func:${func}`);
                 if (func) {
                     testFile[func] = {
                         unitTests: unitTest,
@@ -41,8 +37,6 @@ function createTestFiles(searchResults, testFilePattern) {
     }))
         .then((testFileArray) => {
         return testFileArray.reduce((ret, testFile) => {
-            console.log('testFile:');
-            console.log(testFile);
             return { ...ret, ...testFile };
         }, {});
     });
