@@ -1,7 +1,8 @@
 import  type unitTest  from './unitTest';
 interface testFile {
-    [k: string]: Function | Array<unitTest> | string | undefined;
-    f: Function;
+    [k: string]: any | Array<unitTest>;
+    vName:string,
+    v: any;
     unitTests: Array<unitTest>;
 }
 export {

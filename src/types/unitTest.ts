@@ -1,8 +1,13 @@
 import  type expectedOutcome  from './expectedOutcome';
 interface unitTest {
-    label: string;
+    name:string;
+    outcomeMsg?: string;
     expectedOutcome: expectedOutcome;
-    params: Array<any>;
+    params?: Array<any>;
+    scenarios?:{
+        [k:string]:any;
+        setParams:{[k:number]:string} | Function
+    };
     afterScript?: Function;
 }
 export {

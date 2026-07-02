@@ -6,7 +6,7 @@ import type Config from './config'
 import type test from './test';
 import type testResult from './testResult';
 import type fileSearchResults from './fileSearchResults';
-
+import type testResults from './testResults';
 export {
     type test,
     type unitTest,
@@ -15,5 +15,6 @@ export {
     type testFile,
     type Config,
     type fileSearchResults,
-    type testFiles
+    type testFiles,
+    type testResults
 }

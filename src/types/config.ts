@@ -1,8 +1,13 @@
 interface Config {
     dirs: Array<string>;
+    predefinedVariables:{
+        [k:string]:any;
+    }
     extensions?: string[];
     ignore?: RegExp[];
     testFilePattern?: RegExp;
+    throwErrors:boolean;
+    logInConsole:boolean;
 }
 
 export {

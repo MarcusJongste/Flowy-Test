@@ -21,7 +21,7 @@ function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegE
                     Object.entries(exp).forEach(([functionName, unitTest]: [string, unitTest[]]) => {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
                     });
-                } else if (typeof exp === 'function') {
+                } else if (typeof exp === 'function') {// currently like this
                     const realKey = exp.name ?? fileName.substring(0,fileName.indexOf('.'));
                     // if function
                     retDir.fFiles[`${fullPath}\\${realKey}`] = exp;
@@ -38,7 +38,7 @@ function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegE
                     if (func) {
                         testFile[func] = {
                             unitTests: unitTest,
-                            f: filteredExport.fFiles[func]
+                            v: filteredExport.fFiles[func]
                         }
                     }
                     return testFile;
