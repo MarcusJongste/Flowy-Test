@@ -5,10 +5,21 @@ import createScenario from "../scenario/createScenario";
 import resetScenario from "../scenario/resetScenario";
 import sortUnitTests from "./sortUnitTests";
 
-function functionValidation(config:Config, v:Function, vName:string, unitTests:unitTest[]):Promise<testResult[]> {
-    const sortedUnitTests = sortUnitTests(unitTests);
+/**
+ * functionValidation is the test for functions, we run the function and either compare the
+ * outcome (return), or run a validation function which returns true or false
+ * @param {Config} config
+ * @param {Function} v the actual function to be tested
+ * @param {string} vName the name of the variable for label/outcomeMSg
+ * @param {unitTest[]} unitTests an array of unitTests
+ * @returns {Promise<testResult[]} an array of results from the tests passed
+ */
+function functionValidation(config: Config, v: Function, vName: string, unitTests: unitTest[]): Promise<testResult[]> {
+    // generate/ grab predefined variables from config
     const generatedPreDefinedVariables = createPredifinedParams(config);
-    return Promise.all(sortedUnitTests.map((unitTest:unitTest) => {
+    // for each unitTest
+    return Promise.all(unitTests.map((unitTest: unitTest) => {
+        //
         const { scenarios } = unitTest;
         createScenario(generatedPreDefinedVariables,scenarios);
         const useThis = scenarios?.this? generatedPreDefinedVariables[scenarios.this]:undefined;

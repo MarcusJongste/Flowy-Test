@@ -2,7 +2,8 @@ import  type expectedOutcome  from './expectedOutcome';
 interface unitTest {
     name:string;
     outcomeMsg?: string;
-    expectedOutcome: expectedOutcome;
+    expectedOutcome: any;
+    expectedSource?: 'result' | 'error';
     params?: Array<any>;
     scenarios?:{
         [k:string]:any;
