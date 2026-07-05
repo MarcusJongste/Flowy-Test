@@ -1,19 +1,36 @@
-import { type testResult, type unitTest } from "../types";
-
-function validateOutcome({ expectedOutcome, expectedSource }: unitTest, outcome: any, result: 'error' | 'result' = 'result'): 'success' | 'failure'{
+function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error' = 'result', outcome: any, result: 'error' | 'result' = 'result'): 'success' | 'failure'{
+    // how the result was gottten was not expected
     if (expectedSource && expectedSource !== result) {
         return 'failure';
     }
-    if (typeof expectedOutcome === 'function') {
-        return expectedOutcome() ? 'success' : 'failure';
+    // not same type of variable
+    if (!(expectedOutcome instanceof outcome.constructor)) {
+        return 'failure';
     }
+    // expectedOutcome is a function run it and then validate
+    if (typeof expectedOutcome === 'function') {
+        return validateOutcome(expectedOutcome(), expectedSource, outcome, result);
+    }
+    // expectedOutcome is not an object then validate directly
     if (typeof expectedOutcome !== 'object') { // anything besides object
         return outcome === expectedOutcome ? 'success' : 'failure';
     }
-    if (typeof outcome !== 'object') {
-        return 'failure';
-    }
-    return checkForObjectType(expectedOutcome)
+    // for objects we first check what kind of object and revert expected outcome to an array of [key,value]
+    return checkForObjectType(expectedOutcome).some(([key, value]) => {
+        // if outcome is Map or Set then check .has
+        if (outcome instanceof Map || outcome instanceof Set) {
+            if (outcome.has(key)) {
+                if (outcome instanceof Set) { // set no need to validate value
+                    return false; // only return true if it's wrong
+                }
+                return validateOutcome(value, expectedSource, outcome.get(key), result) !== 'success';
+            }
+        }
+        if (typeof value === 'object') {
+            return validateOutcome(value, expectedSource, outcome[key], result) !== 'success';
+        }
+        return outcome[key] !== value;
+    }) ? 'failure' : 'success';
 }
 
 function checkForObjectType(obj:object | Array<any> | Map<any,any> | Set<any>): Array<Array<any>> {

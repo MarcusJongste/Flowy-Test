@@ -1,9 +1,8 @@
 import { testResult, unitTest } from "../types";
 import validateOutcome from "./validateOutcome";
 
-function createTestResult(unitTest:unitTest,realOutcome:any,result:'error'|'result' = 'result'):testResult{
-    const outcome = validateOutcome(unitTest,realOutcome,result);
-    const {outcomeMsg, name, expectedOutcome} = unitTest;
+function createTestResult({ outcomeMsg, name, expectedOutcome, expectedSource }: unitTest, realOutcome: any, result: 'error' | 'result' = 'result'): testResult{
+    const outcome = validateOutcome(expectedOutcome, expectedSource, realOutcome, result);
     return {
         outcomeMsg: outcomeMsg || `UnitTest(${name}) has ${outcome}, \n${realOutcome} did not match ${expectedOutcome}`,    
         outcome,
