@@ -1,10 +1,10 @@
-function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error' = 'result', outcome: any, result: 'error' | 'result' = 'result'): 'success' | 'failure'{
+function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error' = 'result', outcome: any, result: 'error' | 'result' = 'result'): 'success' | 'failure' {
     // how the result was gottten was not expected
     if (expectedSource && expectedSource !== result) {
         return 'failure';
     }
     // not same type of variable
-    if (!(expectedOutcome instanceof outcome.constructor)) {
+    if (expectedOutcome.constructor.name !== outcome.constructor.name) {
         return 'failure';
     }
     // expectedOutcome is a function run it and then validate
@@ -25,6 +25,7 @@ function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error
                 }
                 return validateOutcome(value, expectedSource, outcome.get(key), result) !== 'success';
             }
+            return true;// return true when outcome ! has key
         }
         if (typeof value === 'object') {
             return validateOutcome(value, expectedSource, outcome[key], result) !== 'success';
@@ -33,16 +34,17 @@ function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error
     }) ? 'failure' : 'success';
 }
 
-function checkForObjectType(obj:object | Array<any> | Map<any,any> | Set<any>): Array<Array<any>> {
+function checkForObjectType(obj: object | Array<any> | Map<any, any> | Set<any>): Array<Array<any>> {
     if (obj instanceof Map || obj instanceof Set) {
         // @ts-ignore toArray does exist just TS is not updated yet
         return obj.entries().toArray();
     }
     if (Array.isArray(obj)) {
-        return obj.map((v,k) => [k,v])
+        return obj.map((v, k) => [k, v])
     }
     return Object.entries(obj);
 }
+
 export {
      validateOutcome as default
 }

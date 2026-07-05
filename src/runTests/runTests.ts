@@ -1,4 +1,5 @@
 import { type testResults, type testResult, type testFiles, type testFile, Config } from '../types';
+import runUnitTest from './runUnitTest';
 import typeValidation from './typeValidation';
 
 /**
@@ -8,7 +9,7 @@ import typeValidation from './typeValidation';
  */
 function runTests(config:Config,testFiles: testFiles):Promise<testResults> {
     return Promise.all(Object.entries(testFiles).map(([fullPath, testFile]) => {
-            return typeValidation(config, testFile)
+        return runUnitTest(config, typeValidation(config, testFile), testFile)
             .then((unitTestResults:testResult[]) => {
                 return {[fullPath]:unitTestResults}
             })
