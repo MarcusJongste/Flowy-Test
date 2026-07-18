@@ -6,6 +6,11 @@ const unitTests:test = {
             name: 'validateOutcome: string validation',
             params:['hello','result','hello'],
             expectedOutcome:'success'
+        },
+        {
+            name: 'validateOutcome: string validation failure',
+            params: ['hello', 'result', 'world'],
+            expectedOutcome: 'failure'
         }
 
     ]

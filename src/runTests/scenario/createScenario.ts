@@ -11,7 +11,6 @@ function createScenario(config: Config, { scenarios, name }: unitTest): { [k: st
     if (scenarios === undefined) {
         return predefinedVariables;
     }
-    console.log(`setting scenario for ${name}`);
     const { scenario } = scenarios;
     Object.entries(scenario).forEach(([varName, change]) => {
         if (predefinedVariables[varName] !== undefined) {
