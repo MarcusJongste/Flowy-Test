@@ -55,5 +55,4 @@ const flowytest = Promise.resolve(Promise.resolve(`${(0, url_1.pathToFileURL)(co
     });
 });
 exports.default = flowytest;
-flowytest.then((testResults) => console.log(testResults));
 //# sourceMappingURL=node.js.map

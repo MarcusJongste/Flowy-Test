@@ -17,7 +17,6 @@ const flowytest = Promise.resolve(import(pathToFileURL(configAuto).href))
                 return runTests(config,testResult);
             })
     });
-flowytest.then((testResults) => console.log(testResults));
 
 export {
     flowytest as default,
