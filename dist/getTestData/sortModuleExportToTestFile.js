@@ -25,12 +25,14 @@ function createTestFiles(searchResults, testFilePattern) {
             .then((filteredExport) => {
             console.log('filteredExport:', filteredExport);
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
-                const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1), folderName = pathName.substring(0, pathName.lastIndexOf('\\')), functionMatcher = new RegExp(`${folderName}.*${functionName}$`), func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
-                if (func) {
-                    console.log(`matching testCase ${functionName}`);
-                    testFile[func] = {
+                const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1), functionMatcher = new RegExp(`${functionName}$`), func = Object.keys(filteredExport.fFiles).filter(key => functionMatcher.test(key));
+                if (func.length > 1) {
+                    throw new Error(`Found duplicate function ${functionName}`);
+                }
+                if (func && func.length > 0) {
+                    testFile[func[0]] = {
                         unitTests: unitTest,
-                        v: filteredExport.fFiles[func],
+                        v: filteredExport.fFiles[func[0]],
                         vName: functionName
                     };
                 }
