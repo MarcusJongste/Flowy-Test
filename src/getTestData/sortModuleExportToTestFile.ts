@@ -29,7 +29,6 @@ function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegE
             return retDir;
         }, { testFiles: {}, fFiles: {}}))
             .then((filteredExport) => {
-                console.log('filteredExport:',filteredExport);
                 return Object.entries(filteredExport.testFiles).reduce((testFile: testFiles, [pathName, unitTest]): testFiles => {
                     const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1),
                         functionMatcher = new RegExp(`${functionName}$`),
