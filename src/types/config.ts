@@ -3,9 +3,9 @@ interface Config {
     predefinedVariables:{
         [k:string]:any;
     }
-    extensions?: string[];
-    ignore?: RegExp[];
-    testFilePattern?: RegExp;
+    extensions: string[];
+    ignore: RegExp[];
+    testFilePattern: RegExp;
     throwErrors:boolean;
     logInConsole:boolean;
 }

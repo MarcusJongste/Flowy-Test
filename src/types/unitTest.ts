@@ -5,9 +5,8 @@ interface unitTest {
     params?: Array<any>;
     scenarios?:{
         [k:string]:any;
-        global?: string[];
         scenario: {
-            [k: string]: { [k: string]: any };
+            [k: string]: { [k: string]: any } | any;
         };
         this?:any
     };
