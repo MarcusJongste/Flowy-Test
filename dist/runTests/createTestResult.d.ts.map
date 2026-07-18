@@ -1,0 +1,1 @@
+{"version":3,"file":"createTestResult.d.ts","sourceRoot":"","sources":["../../src/runTests/createTestResult.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,QAAQ,EAAE,MAAM,UAAU,CAAC;AAGhD,iBAAS,gBAAgB,CAAC,EAAE,IAAI,EAAE,eAAe,EAAE,cAAc,EAAE,EAAE,QAAQ,EAAE,WAAW,EAAE,GAAG,EAAE,MAAM,GAAE,OAAO,GAAG,QAAmB,GAAG,UAAU,CASlJ;AAED,OAAO,EACH,gBAAgB,IAAI,OAAO,EAC9B,CAAA"}

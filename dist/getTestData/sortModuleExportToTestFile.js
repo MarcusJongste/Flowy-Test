@@ -14,7 +14,7 @@ function createTestFiles(searchResults, testFilePattern) {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
                     });
                 }
-                else if (typeof exp === 'function') {
+                else if (typeof exp === 'function') { // currently like this
                     const realKey = (_a = exp.name) !== null && _a !== void 0 ? _a : fileName.substring(0, fileName.indexOf('.'));
                     // if function
                     retDir.fFiles[`${fullPath}\\${realKey}`] = exp;
@@ -28,7 +28,7 @@ function createTestFiles(searchResults, testFilePattern) {
                 if (func) {
                     testFile[func] = {
                         unitTests: unitTest,
-                        f: filteredExport.fFiles[func]
+                        v: filteredExport.fFiles[func]
                     };
                 }
                 return testFile;
