@@ -2,7 +2,11 @@
 import testResult from './testResult';
 interface testResults {
     // each searchdir
-    [k: string]: testResult[]
+    unitTestResults: { [k: string]: testResult[] };
+    numberOfTestsRan: number;
+    numberOfSuccess: number;
+    numberOfFailure: number;
+
 
 }
 export {

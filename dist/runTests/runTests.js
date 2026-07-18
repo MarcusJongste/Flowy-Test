@@ -12,11 +12,15 @@ const typeValidation_1 = __importDefault(require("./typeValidation"));
  * @returns Object of namespaceTestResult, this is ordered by test -> namespace -> module -> function -> unitTests
  */
 function runTests(config, testFiles) {
-    console.log('testFiles', testFiles);
     return Promise.all(Object.entries(testFiles).map(([fullPath, testFile]) => {
         return (0, runUnitTest_1.default)(config, (0, typeValidation_1.default)(config, testFile), testFile)
             .then((unitTestResults) => {
-            return { [fullPath]: unitTestResults };
+            return {
+                unitTestResults: { [fullPath]: unitTestResults },
+                numberOfTestsRan: unitTestResults.length,
+                numberOfSuccess: unitTestResults.reduce((a, b) => { return b.outcome === 'success' ? a + 1 : a; }, 0),
+                numberOfFailure: unitTestResults.reduce((a, b) => { return b.outcome === 'failure' ? a + 1 : a; }, 0),
+            };
         });
     }))
         .then((unitTestResults) => {

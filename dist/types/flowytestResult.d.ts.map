@@ -1,0 +1,1 @@
+{"version":3,"file":"flowytestResult.d.ts","sourceRoot":"","sources":["../../src/types/flowytestResult.ts"],"names":[],"mappings":"AAAA,OAAO,WAAW,MAAM,eAAe,CAAC;AAExC,UAAU,cAAc;IACpB,eAAe,EAAE,WAAW,CAAC;IAC7B,gBAAgB,EAAE,MAAM,CAAC;IACzB,eAAe,EAAE,MAAM,CAAC;IACxB,eAAe,EAAE,MAAM,CAAC;CAC3B;AACD,OAAO,EACH,cAAc,IAAI,OAAO,EAC5B,CAAA"}

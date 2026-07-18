@@ -6,6 +6,7 @@ import type test from './test';
 import type testResult from './testResult';
 import type fileSearchResults from './fileSearchResults';
 import type testResults from './testResults';
+import type flowytestResult from './flowytestResult';
 export {
     type test,
     type unitTest,
@@ -14,5 +15,6 @@ export {
     type Config,
     type fileSearchResults,
     type testFiles,
-    type testResults
+    type testResults,
+    type flowytestResult
 }

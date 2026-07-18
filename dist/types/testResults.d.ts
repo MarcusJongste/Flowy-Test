@@ -1,6 +1,11 @@
 import testResult from './testResult';
 interface testResults {
-    [k: string]: testResult[];
+    unitTestResults: {
+        [k: string]: testResult[];
+    };
+    numberOfTestsRan: number;
+    numberOfSuccess: number;
+    numberOfFailure: number;
 }
 export { testResults as default };
 //# sourceMappingURL=testResults.d.ts.map

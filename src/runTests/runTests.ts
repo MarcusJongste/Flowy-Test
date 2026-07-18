@@ -1,4 +1,4 @@
-import { type testResults, type testResult, type testFiles, type testFile, Config } from '../types';
+import { type testResults, type testResult, type testFiles, type flowytestResult, Config } from '../types';
 import runUnitTest from './runUnitTest';
 import typeValidation from './typeValidation';
 
@@ -8,11 +8,15 @@ import typeValidation from './typeValidation';
  * @returns Object of namespaceTestResult, this is ordered by test -> namespace -> module -> function -> unitTests
  */
 function runTests(config: Config, testFiles: testFiles): Promise<testResults> {
-    console.log('testFiles', testFiles);
     return Promise.all(Object.entries(testFiles).map(([fullPath, testFile]) => {
         return runUnitTest(config, typeValidation(config, testFile), testFile)
-            .then((unitTestResults:testResult[]) => {
-                return {[fullPath]:unitTestResults}
+            .then((unitTestResults: testResult[]): testResults => {
+                return {
+                    unitTestResults: { [fullPath]: unitTestResults },
+                    numberOfTestsRan: unitTestResults.length,
+                    numberOfSuccess: unitTestResults.reduce((a, b) => { return b.outcome === 'success' ? a + 1 : a; }, 0),
+                    numberOfFailure: unitTestResults.reduce((a, b) => { return b.outcome === 'failure' ? a + 1 : a; }, 0),
+            }
             })
     }))
         .then((unitTestResults: testResults[]) => {

@@ -5,7 +5,6 @@ interface testResult {
     expectedOutcome: any;
     realOutcome: any;
 }
-
 export {
     testResult as default
 }

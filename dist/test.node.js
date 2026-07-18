@@ -6,7 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flowy_test_1 = __importDefault(require("flowy-test"));
 flowy_test_1.default
     .then((testResult) => {
-    console.log(testResult);
+    console.log(`Ran (${testResult.numberOfTestsRan}) | success:${testResult.numberOfSuccess} | success:${testResult.numberOfFailure}`);
+    testResult.unitTestResults.forEach((testResult) => {
+        if (testResult.outcome === 'failure') {
+            console.log(testResult);
+        }
+    });
     console.log('testing completed');
 });
 //# sourceMappingURL=test.node.js.map

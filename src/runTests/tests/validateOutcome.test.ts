@@ -1,12 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = void 0;
-const unitTests = {
+import { type test,type testResult } from "../../types";
+
+const unitTests:test = {
     validateOutcome: [
         // expectedSource vs result source error or result(return)
         {
             name: 'validateOutcome: expectedSource',
-            params: [1, 'error', 1],
+            params: [1,'error',1],
             expectedOutcome: 'failure'
         },
         {
@@ -16,14 +15,14 @@ const unitTests = {
         },
         {
             name: 'validateOutcome: expectedSource',
-            params: [1, 'error', 1, 'error'],
+            params: [1, 'error', 1,'error'],
             expectedOutcome: 'success'
         },
         // string validations 
         {
             name: 'validateOutcome: string validation',
-            params: ['hello', 'result', 'hello'],
-            expectedOutcome: 'success'
+            params:['hello','result','hello'],
+            expectedOutcome:'success'
         },
         {
             name: 'validateOutcome: string validation failure',
@@ -33,7 +32,7 @@ const unitTests = {
         // number validations
         {
             name: 'validateOutcome: number validation',
-            params: [1, 'result', 1],
+            params: [1, 'result', 1], 
             expectedOutcome: 'success'
         },
         {
@@ -46,6 +45,7 @@ const unitTests = {
             params: [1.4, 'result', 1.4],
             expectedOutcome: 'success'
         },
+
         // array validations
         {
             name: 'validateOutcome: array validation',
@@ -54,7 +54,7 @@ const unitTests = {
         },
         {
             name: 'validateOutcome: array multiple validation',
-            params: [['hello', 2, 'world'], 'result', ['hello', 2, 'world']],
+            params: [['hello',2,'world'], 'result', ['hello',2,'world']],
             expectedOutcome: 'success'
         },
         {
@@ -64,7 +64,7 @@ const unitTests = {
         },
         {
             name: 'validateOutcome: array failure validation',
-            params: [['hello', 2, 'world'], 'result', ['hello', 2]],
+            params: [['hello', 2,'world'], 'result', ['hello', 2]],
             expectedOutcome: 'failure'
         },
         {
@@ -76,38 +76,42 @@ const unitTests = {
         {
             name: 'validateOutcome: object validation',
             params: [{
-                    value1: 'a'
-                },
-                'result',
-                {
-                    value1: 'a'
-                }],
+                value1:'a'
+            },
+            'result',
+            {
+                value1: 'a'
+            }],
             expectedOutcome: 'success'
         },
         {
             name: 'validateOutcome: object failure validation',
             params: [{
-                    value1: 'a'
-                },
+                value1: 'a'
+            },
                 'result',
-                {
-                    value1: 'b'
-                }],
+            {
+                value1: 'b'
+            }],
             expectedOutcome: 'failure'
         },
         {
             name: 'validateOutcome: object contains validation',
             params: [{
-                    value1: 'a'
-                },
+                value1: 'a'
+            },
                 'result',
-                {
-                    value1: 'a',
-                    value12: 'hello'
-                }],
+            {
+                value1: 'a',
+                value12:'hello'
+            }],
             expectedOutcome: 'success'
         },
+
+
     ]
-};
-exports.default = unitTests;
-//# sourceMappingURL=validateOutcome.test.js.map
+}
+
+export {
+    unitTests as default
+}
