@@ -48,6 +48,8 @@ const configContent = `import { Config } from 'flowy-test';
  3. ...
 */
 const config: Config = {
+    // predefined variables e.a. globals or other common used variables to share between tests (get reset for every test)
+    predefinedVariables: {};
     // write here the directories to test 
     dirs: [],
     // RegExp patterns for files to ignore
@@ -56,6 +58,9 @@ const config: Config = {
     extensions: ['js', 'ts'],
     // which files are tests
     testFilePattern: /test\.(ts|js)$/
+    // output config
+    throwErrors:true,
+    logInConsole:true,
 };
 export default config;`;
 const projectRoot = path.resolve(__dirname, '..', '..', '..');

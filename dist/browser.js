@@ -1,15 +1,1 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = void 0;
-const getTestFiles_1 = __importDefault(require("./getTestData/getTestFiles"));
-const getTestDataBrowser_1 = __importDefault(require("./getTestData/getTestDataBrowser"));
-const flowyTest = {
-    unitTest: (config) => {
-        console.log((0, getTestFiles_1.default)(config, getTestDataBrowser_1.default));
-    }
-};
-exports.default = flowyTest;
-//# sourceMappingURL=browser.js.map
+(()=>{var e={148(e,t,s){"use strict";var r=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;const n=r(s(992)),i=r(s(459)),o={unitTest:e=>{console.log((0,n.default)(e,i.default))}};t.default=o},459(e,t,s){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e,t,r,n=[]){return Promise.all(e.map(e=>{const i=s(782).context(e,!0);return Promise.all(Object.entries(i).map(([e,s])=>{const o=e.split("/"),u=o[o.length-1];return n.some(e=>e.test(u))||!t.some(e=>new RegExp(String.raw`\s${e}$\s`).test(u))&&!r.test(u)?Promise.resolve(void 0):i(e).then(t=>({[e]:{[u]:t}}))})).then(t=>({[e]:t.filter(e=>!!e).reduce((e,t)=>({...e,...t}),{})}))})).then(e=>e.reduce((e,t)=>({...e,...t})))}},992(e,t,s){"use strict";var r=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(t,"__esModule",{value:!0}),t.default=function({dirs:e,extensions:t,testFilePattern:s,ignore:r},i){return i(e,t,s,r).then(e=>(0,n.default)(e,s))};const n=r(s(690))},690(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e,t){return Promise.all(Object.entries(e).map(([e,s])=>Promise.resolve(Object.entries(s).reduce((e,[s,r])=>{const n=s.substring(s.lastIndexOf("\\")+1),i=s.substring(0,s.lastIndexOf("\\"));return Object.entries(r).forEach(([r,o])=>{var u;if(function(e,t,s){return e.test(s)}(t,0,n))Object.entries(o).forEach(([t,s])=>{e.testFiles[`${i}\\${t}`]=e.testFiles[`${i}\\${t}`]?[...e.testFiles[`${i}\\${t}`],...s]:s});else if("function"==typeof o){const t=null!==(u=o.name)&&void 0!==u?u:n.substring(0,n.indexOf("."));e.fFiles[`${s}\\${t}`]=o}}),e},{testFiles:{},fFiles:{}})).then(e=>Object.entries(e.testFiles).reduce((t,[s,r])=>{const n=s.substring(s.lastIndexOf("\\")+1),i=s.substring(0,s.lastIndexOf("\\")),o=new RegExp(`${i}.*${n}$`),u=Object.keys(e.fFiles).find(e=>o.test(e));return u&&(t[u]={unitTests:r,v:e.fFiles[u],vName:n}),t},{})))).then(e=>e.reduce((e,t)=>({...e,...t}),{}))}},782(e){function t(e){var t=new Error("Cannot find module '"+e+"'");throw t.code="MODULE_NOT_FOUND",t}t.keys=()=>[],t.resolve=t,t.id=782,e.exports=t}},t={};function s(r){var n=t[r];if(void 0!==n)return n.exports;var i=t[r]={exports:{}};return e[r].call(i.exports,i,i.exports,s),i.exports}s.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t);var r=s(148);module.exports=r})();

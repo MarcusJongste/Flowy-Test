@@ -4,6 +4,6 @@ import { type Config, type testFiles } from '../types';
  * @param config the config file as defined
  * @returns {Promise<{testFile}>} Promise which will return an object with testFiles
  */
-declare function getTestFiles(config: Config, searchDir: Function): Promise<testFiles>;
+declare function getTestFiles({ dirs, extensions, testFilePattern, ignore }: Config, searchDir: Function): Promise<testFiles>;
 export { getTestFiles as default };
 //# sourceMappingURL=getTestFiles.d.ts.map

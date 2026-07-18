@@ -8,10 +8,9 @@ const createTestResult_1 = __importDefault(require("../createTestResult"));
 /**
  * functionValidation is the test for functions, we run the function and either compare the
  * outcome (return), or run a validation function which returns true or false
- * @param {Config} config
+ * @param {{[k:string]:any}} preDefinedVariables
  * @param {Function} v the actual function to be tested
- * @param {string} vName the name of the variable for label/outcomeMSg
- * @param {unitTest[]} unitTests an array of unitTests
+ * @param {unitTest} unitTest the name of the variable for label/outcomeMSg
  * @returns {Promise<testResult[]} an array of results from the tests passed
  */
 function functionValidation(preDefinedVariables, v, unitTest) {

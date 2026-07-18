@@ -28,7 +28,8 @@ function createTestFiles(searchResults, testFilePattern) {
                 if (func) {
                     testFile[func] = {
                         unitTests: unitTest,
-                        v: filteredExport.fFiles[func]
+                        v: filteredExport.fFiles[func],
+                        vName: functionName
                     };
                 }
                 return testFile;

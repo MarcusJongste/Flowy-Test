@@ -1,0 +1,1 @@
+{"version":3,"file":"validateConfig.d.ts","sourceRoot":"","sources":["../../src/getTestData/validateConfig.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAElC,iBAAS,cAAc,CAAC,EACpB,IAAI,EACJ,UAAU,EACV,MAAM,EACN,eAAe,EACf,mBAAmB,EACnB,WAAW,EACX,YAAY,EAAE,EAAE,MAAM,GAAG,MAAM,CAclC;AAED,OAAO,EACH,cAAc,IAAI,OAAO,EAC5B,CAAA"}
