@@ -7,7 +7,6 @@ exports.default = createTestResult;
 const validateOutcome_1 = __importDefault(require("./validateOutcome"));
 function createTestResult({ name, expectedOutcome, expectedSource }, realOutcome, result = 'result') {
     const outcome = (0, validateOutcome_1.default)(expectedOutcome, expectedSource, realOutcome, result);
-    console.log(`creating test result ${outcome}`);
     return {
         outcomeMsg: `UnitTest(${name}) has ${outcome}, \nexpected:${expectedOutcome} \nactual:${realOutcome}`,
         outcome,

@@ -8,7 +8,6 @@ const createScenario_1 = __importDefault(require("./scenario/createScenario"));
 function runUnitTest(config, typeValidation, { v, unitTests }) {
     // for each unitTest
     return Promise.all(unitTests.map((unitTest) => {
-        console.log(`running Unittest(${unitTest.name})`);
         // create predefined Variables
         const generatedPreDefinedVariables = (0, createScenario_1.default)(config, unitTest);
         return Promise.resolve(typeValidation(generatedPreDefinedVariables, v, unitTest));
