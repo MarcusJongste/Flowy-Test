@@ -7,7 +7,8 @@ import typeValidation from './typeValidation';
  * @param testFiles passed by getTestData based on config folders
  * @returns Object of namespaceTestResult, this is ordered by test -> namespace -> module -> function -> unitTests
  */
-function runTests(config:Config,testFiles: testFiles):Promise<testResults> {
+function runTests(config: Config, testFiles: testFiles): Promise<testResults> {
+    console.log('testFiles', testFiles);
     return Promise.all(Object.entries(testFiles).map(([fullPath, testFile]) => {
         return runUnitTest(config, typeValidation(config, testFile), testFile)
             .then((unitTestResults:testResult[]) => {

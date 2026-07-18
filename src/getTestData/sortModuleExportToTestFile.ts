@@ -1,4 +1,3 @@
-import unitTests from '../flowyTest.test';
 import {  fileSearchResults, unitTest, type testFiles, test } from '../types';
 
 interface tempTestFile {

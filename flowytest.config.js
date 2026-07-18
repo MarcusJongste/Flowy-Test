@@ -10,13 +10,19 @@
  3. ...
 */
 const config = {
+    // predefined variables e.a. globals or other common used variables to share between tests (get reset for every test)
+    predefinedVariables: {},
     // write here the directories to test 
-    dirs: ['src'],
+    dirs: ['src/runTests'],
     // files to ignore
     ignore: [/index.(ts|js)$/],
     // file extension to check
     extensions: ['js', 'ts'],
     // which files are tests
-    testFilePattern: /\.test\.(ts|js)$/
+    testFilePattern: /\.test\.(ts|js)$/,
+    // output config
+    throwErrors: true,
+    logInConsole: true,
+
 };
 export default config;
