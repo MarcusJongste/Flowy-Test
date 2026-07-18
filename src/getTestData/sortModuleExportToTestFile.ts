@@ -36,6 +36,7 @@ function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegE
                         functionMatcher = new RegExp(`${folderName}.*${functionName}$`),
                         func = Object.keys(filteredExport.fFiles).find(key => functionMatcher.test(key));
                     if (func) {
+                        console.log(`matching testCase ${functionName}`)
                         testFile[func] = {
                             unitTests: unitTest,
                             v: filteredExport.fFiles[func],

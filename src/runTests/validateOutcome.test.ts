@@ -1,4 +1,4 @@
-import { type test,type testResult } from "../../types";
+import { type test,type testResult } from "../types";
 
 const unitTests:test = {
     validateOutcome: [
@@ -16,7 +16,7 @@ const unitTests:test = {
         // number validations
         {
             name: 'validateOutcome: number validation',
-            params: [1, 'result', 1],
+            params: [1, 'result', 1], 
             expectedOutcome: 'success'
         },
         {
