@@ -15,7 +15,7 @@ function functionValidation(preDefinedVariables: { [k: string]: any },v:Function
     const useThis = scenarios?.this ? preDefinedVariables[scenarios.this] : undefined;
     return new Promise((resolve) => { resolve(v.call(useThis, ...(unitTest.params || []))) })
             .then((result) => createTestResult(unitTest, result))
-            .catch((error) => createTestResult(unitTest, error, 'error'))
+            .catch((error) => createTestResult(unitTest, error.message, 'error'))
 }
 
 
