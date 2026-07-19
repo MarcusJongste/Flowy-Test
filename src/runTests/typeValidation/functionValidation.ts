@@ -13,7 +13,7 @@ import createTestResult from "../createTestResult";
 function functionValidation(preDefinedVariables: { [k: string]: any },v:Function, unitTest: unitTest): Promise<testResult> {
     const { scenarios } = unitTest;
     const useThis = scenarios?.this ? preDefinedVariables[scenarios.this] : undefined;
-    return new Promise((resolve) => { v.call(useThis, ...(unitTest.params || [])) })
+    return new Promise((resolve) => { resolve(v.call(useThis, ...(unitTest.params || []))) })
             .then((result) => createTestResult(unitTest, result))
             .catch((error) => createTestResult(unitTest, error, 'error'))
 }
