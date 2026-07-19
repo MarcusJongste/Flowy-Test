@@ -25,7 +25,12 @@ function runTests(config, testFiles) {
     }))
         .then((unitTestResults) => {
         return unitTestResults.reduce((a, b) => {
-            return { ...a, ...b };
+            return {
+                unitTestResults: { ...a.unitTestResults, ...b.unitTestResults },
+                numberOfTestsRan: (a.numberOfTestsRan || 0) + b.numberOfTestsRan,
+                numberOfSuccess: (a.numberOfSuccess || 0) + b.numberOfSuccess,
+                numberOfFailure: (a.numberOfFailure || 0) + b.numberOfFailure,
+            };
         });
     });
 }
