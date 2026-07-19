@@ -29,6 +29,7 @@ function createTestFiles(searchResults, testFilePattern) {
                     throw new Error(`Found duplicate function ${functionName}`);
                 }
                 if (func && func.length > 0) {
+                    console.log(`found testcases(${testFile[func[0]].unitTests.length}) for ${functionName}`);
                     testFile[func[0]] = {
                         unitTests: unitTest,
                         v: filteredExport.fFiles[func[0]],
