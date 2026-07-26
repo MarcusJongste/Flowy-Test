@@ -107,6 +107,12 @@ const unitTests = {
                 }],
             expectedOutcome: 'success'
         },
+        // function
+        {
+            name: 'validateOutcome: function validation',
+            params: [function () { return true; }, 'result', true],
+            expectedOutcome: 'success'
+        }
     ]
 };
 exports.default = unitTests;

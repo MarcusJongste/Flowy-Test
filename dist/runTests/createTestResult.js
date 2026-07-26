@@ -8,10 +8,11 @@ const validateOutcome_1 = __importDefault(require("./validateOutcome"));
 function createTestResult({ name, expectedOutcome, expectedSource }, realOutcome, result = 'result') {
     const outcome = (0, validateOutcome_1.default)(expectedOutcome, expectedSource, realOutcome, result);
     return {
-        outcomeMsg: `UnitTest(${name}) has ${outcome}, \nexpected:${expectedOutcome} \nactual:${realOutcome}`,
-        outcome,
-        expectedOutcome,
-        realOutcome,
+        message: `UnitTest(${name}) has ${outcome}, \nexpected:${expectedOutcome} \nactual:${realOutcome}`,
+        result: outcome,
+        source: result,
+        expected: expectedOutcome,
+        outcome: realOutcome,
     };
 }
 //# sourceMappingURL=createTestResult.js.map

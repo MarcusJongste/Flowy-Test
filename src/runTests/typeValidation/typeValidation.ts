@@ -7,7 +7,7 @@ import invalidValidation from '../invalidValidation';
  * @param {testFile} testFile for this variable 
  * @returns {Promise<testResult[]>} the results of unitTests or one result saying invalid type
  */
-const typeValidation = (config: Config, { v, vName }: testFile): Function => {
+const typeValidation = ({ v, vName }: testFile): Function => {
     if (typeof v === 'function') {
         return functionValidation;
     }

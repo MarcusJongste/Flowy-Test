@@ -9,13 +9,13 @@ import typeValidation from './typeValidation';
  */
 function runTests(config: Config, testFiles: testFiles): Promise<testResults> {
     return Promise.all(Object.entries(testFiles).map(([fullPath, testFile]) => {
-        return runUnitTest(config, typeValidation(config, testFile), testFile)
+        return runUnitTest(config, typeValidation(testFile), testFile)
             .then((unitTestResults: testResult[]): testResults => {
                 return {
                     unitTestResults: { [fullPath]: unitTestResults },
                     numberOfTestsRan: unitTestResults.length,
-                    numberOfSuccess: unitTestResults.reduce((a, b) => { return b.outcome === 'success' ? a + 1 : a; }, 0),
-                    numberOfFailure: unitTestResults.reduce((a, b) => { return b.outcome === 'failure' ? a + 1 : a; }, 0),
+                    numberOfSuccess: unitTestResults.reduce((a, b) => { return b.result === 'success' ? a + 1 : a; }, 0),
+                    numberOfFailure: unitTestResults.reduce((a, b) => { return b.result === 'failure' ? a + 1 : a; }, 0),
             }
             })
     }))

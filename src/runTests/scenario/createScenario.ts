@@ -1,4 +1,4 @@
-import { type unitTest,type Config } from "../../types";0
+import { type unitTest,type Config } from "../../types";
 
 /**
  * 
@@ -6,7 +6,7 @@ import { type unitTest,type Config } from "../../types";0
  * @param param1
  * @returns
  */
-function createScenario(config: Config, { scenarios, name }: unitTest): { [k: string]: any } {
+function createScenario(config: Config, { scenarios }: unitTest): { [k: string]: any } {
     const predefinedVariables = createPredifinedParams(config);
     if (scenarios === undefined) {
         return predefinedVariables;
@@ -26,14 +26,21 @@ function createScenario(config: Config, { scenarios, name }: unitTest): { [k: st
  * @param change
  * @returns
  */
-function setChange(variable:any, change:any):any {
-    if (typeof change !== 'object' || Array.isArray(change)) {
+function setChange(variable: any, change: any): any {
+    if (typeof change !== 'object' || Array.isArray(change) || change === null) {
+        if (typeof change === 'function') {
+            return change();
+        }
         return change;
     } else {
+        if (variable instanceof Map || variable instanceof Set) {
+            throw new Error('cannot set changes to Map or Set');
+        }
+        if (change instanceof Map || change instanceof Set) {
+            return change;
+        }
         Object.entries(change).forEach(([key, c]) => {
-            if (variable instanceof Map || variable instanceof Set) {
-                throw new Error('cannot set changes to Map or Set');
-            }
+            variable = variable !== null && typeof variable === 'object' ? variable : {};
             variable[key] = setChange(variable[key], c);
         });
         return variable;
@@ -44,6 +51,7 @@ function createPredifinedParams({ predefinedVariables }: Config): { [k: string]:
     return Object.entries(predefinedVariables).reduce((ret: { [k: string]: any }, [key, value]): { [k: string]: any } => {
         if (typeof value === 'function') {
             ret[key] = value();
+            return ret;
         }
         ret[key] = value;
         return ret;

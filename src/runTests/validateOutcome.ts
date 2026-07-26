@@ -3,13 +3,13 @@ function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error
     if (expectedSource && expectedSource !== result) {
         return 'failure';
     }
-    // not same type of variable
-    if (expectedOutcome.constructor.name !== outcome.constructor.name) {
-        return 'failure';
-    }
     // expectedOutcome is a function run it and then validate
     if (typeof expectedOutcome === 'function') {
         return validateOutcome(expectedOutcome(), expectedSource, outcome, result);
+    }
+    // not same type of variable
+    if (expectedOutcome.constructor.name !== outcome.constructor.name) {
+        return 'failure';
     }
     // expectedOutcome is not an object then validate directly
     if (typeof expectedOutcome !== 'object') { // anything besides object

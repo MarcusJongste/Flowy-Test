@@ -1,9 +1,11 @@
 interface testResult {
     [k: string]: any;
-    outcomeMsg: string;
-    outcome: 'success' | 'failure';
-    expectedOutcome: any;
-    realOutcome: any;
+    message: string;
+    source: 'result' | 'error';
+    result: 'success' | 'failure';
+    expected: any;
+    outcome: any;
+
 }
 export {
     testResult as default

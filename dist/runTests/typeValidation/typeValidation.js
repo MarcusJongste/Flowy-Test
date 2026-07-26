@@ -11,7 +11,7 @@ const invalidValidation_1 = __importDefault(require("../invalidValidation"));
  * @param {testFile} testFile for this variable
  * @returns {Promise<testResult[]>} the results of unitTests or one result saying invalid type
  */
-const typeValidation = (config, { v, vName }) => {
+const typeValidation = ({ v, vName }) => {
     if (typeof v === 'function') {
         return functionValidation_1.default;
     }

@@ -9,7 +9,7 @@ flowy_test_1.default
     console.log(`Ran (${testResult.numberOfTestsRan}) | success:${testResult.numberOfSuccess} | failure:${testResult.numberOfFailure}`);
     Object.entries(testResult.unitTestResults).forEach(([fullPath, testResults]) => {
         testResults.forEach((testResult) => {
-            if (testResult.outcome === 'failure') {
+            if (testResult.result === 'failure') {
                 console.log(testResult);
             }
         });
