@@ -13,9 +13,7 @@ function createScenario(config: Config, { scenarios }: unitTest): { [k: string]:
     }
     const { scenario } = scenarios;
     Object.entries(scenario).forEach(([varName, change]) => {
-        if (predefinedVariables[varName] !== undefined) {
-            predefinedVariables[varName] = setChange(predefinedVariables[varName], change);
-        }
+        predefinedVariables[varName] = setChange(predefinedVariables[varName], change);
     });
     return predefinedVariables
 }
