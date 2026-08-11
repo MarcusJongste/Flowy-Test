@@ -35,7 +35,6 @@
     "build:node": "tsc",
     "build:browser": "webpack",
     "postinstall": "node dist/setup.js",
-    // "prepare": "npm run build",
     "test:node": "tsx src/test.node.ts"
   },
   "devDependencies": {
