@@ -7,7 +7,6 @@ function logger(testResults: testResults): void {
             console.log(`Testcases(${failedTestResults.length}) failed for ${fullPath}`);
             failedTestResults.forEach(result => console.log(result.message));
         }
-        console.log(`ran tests for ${fullPath}`);
     });
     console.log(`Ran (${testResults.numberOfTestsRan}) | success:${testResults.numberOfSuccess} | failure:${testResults.numberOfFailure}`);
 }
