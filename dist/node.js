@@ -43,6 +43,7 @@ const path = __importStar(require("path"));
 const url_1 = require("url");
 const runTests_1 = __importDefault(require("./runTests/runTests"));
 const validateConfig_1 = __importDefault(require("./getTestData/validateConfig"));
+const output_1 = __importDefault(require("./output"));
 const rootPath = path.resolve(__dirname, '..');
 const configAuto = path.resolve(rootPath, 'flowytest.config.js');
 console.log('starting node test');
@@ -50,8 +51,11 @@ const flowytest = Promise.resolve(Promise.resolve(`${(0, url_1.pathToFileURL)(co
     .then((finalConf) => {
     const config = (0, validateConfig_1.default)(finalConf.default);
     return (0, getTestFiles_1.default)(config, getTestDataNode_1.default)
-        .then((testResult) => {
-        return (0, runTests_1.default)(config, testResult);
+        .then((testFiles) => {
+        (0, runTests_1.default)(config, testFiles)
+            .then((testResults) => {
+            (0, output_1.default)(config, testResults);
+        });
     });
 });
 exports.default = flowytest;

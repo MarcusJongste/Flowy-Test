@@ -58,8 +58,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
                 if (entry.isDirectory()) {
                     return searchDir([fullPath], extensions, testFilePattern, ignore)
                         .then((searchResults) => {
-                        var _a, _b, _c;
-                        return (_c = (_b = (_a = Object.entries(searchResults)) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b[1]) !== null && _c !== void 0 ? _c : {};
+                        return Object.entries(searchResults)?.[0]?.[1] ?? {};
                     });
                 }
                 else {

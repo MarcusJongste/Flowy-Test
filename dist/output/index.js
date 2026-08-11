@@ -3,9 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const flowy_test_1 = __importDefault(require("flowy-test"));
-flowy_test_1.default
-    .then((testResult) => {
-    console.log('testing completed');
-});
-//# sourceMappingURL=test.node.js.map
+exports.default = void 0;
+const output_1 = __importDefault(require("./output"));
+exports.default = output_1.default;
+//# sourceMappingURL=index.js.map

@@ -15,7 +15,7 @@ const createTestResult_1 = __importDefault(require("../createTestResult"));
  */
 function functionValidation(preDefinedVariables, v, unitTest) {
     const { scenarios } = unitTest;
-    const useThis = (scenarios === null || scenarios === void 0 ? void 0 : scenarios.this) ? preDefinedVariables[scenarios.this] : undefined;
+    const useThis = scenarios?.this ? preDefinedVariables[scenarios.this] : undefined;
     return new Promise((resolve) => { resolve(v.call(useThis, ...(unitTest.params || []))); })
         .then((result) => (0, createTestResult_1.default)(unitTest, result))
         .catch((error) => (0, createTestResult_1.default)(unitTest, error.message, 'error'));
