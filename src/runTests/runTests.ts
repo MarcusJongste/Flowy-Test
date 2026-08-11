@@ -21,13 +21,18 @@ function runTests(config: Config, testFiles: testFiles): Promise<testResults> {
             })
     }))
         .then((unitTestResults: testResults[]) => {
-            return unitTestResults.reduce((a, b) => {
+            return unitTestResults.reduce((a: testResults, b) => {
                 return {
                     unitTestResults: { ...a.unitTestResults, ...b.unitTestResults },
-                    numberOfTestsRan: (a.numberOfTestsRan || 0) + b.numberOfTestsRan,
-                    numberOfSuccess: (a.numberOfSuccess || 0) + b.numberOfSuccess,
-                    numberOfFailure: (a.numberOfFailure || 0) + b.numberOfFailure,
+                    numberOfTestsRan: a.numberOfTestsRan + b.numberOfTestsRan,
+                    numberOfSuccess: a.numberOfSuccess + b.numberOfSuccess,
+                    numberOfFailure: a.numberOfFailure  + b.numberOfFailure,
                 };
+            }, {
+                unitTestResults: {},
+                numberOfFailure: 0,
+                numberOfSuccess: 0,
+                numberOfTestsRan:0
             });
         })
 }

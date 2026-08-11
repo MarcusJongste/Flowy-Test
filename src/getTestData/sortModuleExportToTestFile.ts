@@ -11,7 +11,8 @@ interface tempTestFile {
 function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegExp): Promise<testFiles> {
 
     // each directory passed from config dirs
-    return Promise.all(Object.entries(searchResults).map(([searchDir,folders]) => {
+    return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
+        console.log(`checking testFiles for dir${searchDir}`);
         return Promise.resolve(Object.entries(folders).reduce((retDir: tempTestFile, [fullPath, module]): tempTestFile => {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\')+1),
                 folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));

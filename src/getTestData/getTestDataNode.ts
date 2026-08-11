@@ -54,7 +54,7 @@ function searchDir(searchPaths: Array<string>, extensions: Array<string>, testFi
         }
         return namespaceArray.reduce((ret, namespace) => {
             return { ...ret, ...namespace };
-        });
+        }, {});
     });
 }
 
