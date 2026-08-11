@@ -35,7 +35,7 @@
     "build:node": "tsc",
     "build:browser": "webpack",
     "postinstall": "node dist/setup.js",
-    "prepare": "npm run build",
+    // "prepare": "npm run build",
     "test:node": "tsx src/test.node.ts"
   },
   "devDependencies": {
@@ -47,7 +47,6 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "flowy-test": "github:MarcusJongste/Flowy-Test#version/0.2",
     "ts-loader": "^9.5.1",
     "tsx": "^4.7.0"
   },
