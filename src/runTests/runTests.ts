@@ -1,4 +1,4 @@
-import { type testResults, type testResult, type testFiles, type flowytestResult, Config } from '../types';
+import { type testResults, type testResult, type testFiles, Config } from '../types';
 import runUnitTest from './runUnitTest';
 import typeValidation from './typeValidation';
 
@@ -11,6 +11,7 @@ function runTests(config: Config, testFiles: testFiles): Promise<testResults> {
     return Promise.all(Object.entries(testFiles).map(([fullPath, testFile]) => {
         return runUnitTest(config, typeValidation(testFile), testFile)
             .then((unitTestResults: testResult[]): testResults => {
+           
                 return {
                     unitTestResults: { [fullPath]: unitTestResults },
                     numberOfTestsRan: unitTestResults.length,
