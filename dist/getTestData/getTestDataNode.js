@@ -88,7 +88,7 @@ function searchDir(searchPaths, extensions, testFilePattern, ignore = []) {
         }
         return namespaceArray.reduce((ret, namespace) => {
             return { ...ret, ...namespace };
-        });
+        }, {});
     });
 }
 //# sourceMappingURL=getTestDataNode.js.map
