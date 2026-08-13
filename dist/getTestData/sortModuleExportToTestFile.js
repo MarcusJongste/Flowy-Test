@@ -23,7 +23,7 @@ function createTestFiles(searchResults, testFilePattern) {
             return retDir;
         }, { testFiles: {}, fFiles: {} }))
             .then((filteredExport) => {
-            console.log('filteredExport size', Object.keys(filteredExport).length);
+            console.log('filteredExport size:', searchDir, filteredExport.testFiles.length);
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
                 const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1), functionMatcher = new RegExp(`${functionName}$`), func = Object.keys(filteredExport.fFiles).filter(key => functionMatcher.test(key));
                 if (func.length > 1) {
