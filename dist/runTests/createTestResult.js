@@ -6,6 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTestResult;
 const validateOutcome_1 = __importDefault(require("./validateOutcome"));
 function createTestResult({ name, expectedOutcome, expectedSource }, realOutcome, result = 'result') {
+    if (typeof expectedOutcome === 'function') {
+        return createTestResult({
+            expectedOutcome: expectedOutcome(),
+            name,
+            expectedSource
+        }, realOutcome, result);
+    }
     const outcome = (0, validateOutcome_1.default)(expectedOutcome, expectedSource, realOutcome, result);
     return {
         message: `UnitTest(${name}) has ${outcome}, \nexpected:${expectedOutcome} \nactual:${realOutcome}`,

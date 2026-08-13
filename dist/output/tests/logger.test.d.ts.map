@@ -1,1 +1,1 @@
-{"version":3,"file":"logger.test.d.ts","sourceRoot":"","sources":["../../../src/output/tests/logger.test.ts"],"names":[],"mappings":""}
+{"version":3,"file":"logger.test.d.ts","sourceRoot":"","sources":["../../../src/output/tests/logger.test.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,IAAI,EAAE,MAAM,aAAa,CAAC;AAKxC,QAAA,MAAM,SAAS,EAAE,IAkDhB,CAAC;AAEF,OAAO,EACH,SAAS,IAAI,OAAO,EACvB,CAAA"}

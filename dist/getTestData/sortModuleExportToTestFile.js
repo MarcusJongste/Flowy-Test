@@ -1,7 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTestFiles;
-//interface of namespaces needed
+/**
+ * createTestFiles gets the found files, and matches tests with the correct variables which should be tested
+ * @param {fileSearchResults} searchResults the results of the search containing all eligible files
+ * @param {RegExp} testFilePattern regular expression which determines testfiles from other.
+ * @returns {Promise<testFiles>} a promise to return testFiles an object with all functions and tests matched and combined.
+ */
 function createTestFiles(searchResults, testFilePattern) {
     // each directory passed from config dirs
     return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
@@ -10,6 +15,7 @@ function createTestFiles(searchResults, testFilePattern) {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 1), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
             Object.entries(module).forEach(([key, exp]) => {
                 if (isTest(testFilePattern, exp, fileName)) {
+                    console.log(`${fileName} matching the regular test expression`);
                     Object.entries(exp).forEach(([functionName, unitTest]) => {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
                     });
@@ -18,6 +24,9 @@ function createTestFiles(searchResults, testFilePattern) {
                     const realKey = exp.name ?? fileName.substring(0, fileName.indexOf('.'));
                     // if function
                     retDir.fFiles[`${fullPath}\\${realKey}`] = exp;
+                }
+                else {
+                    console.log('currently only handling functions not variables');
                 }
             });
             return retDir;

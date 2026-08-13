@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = void 0;
 const unitTests = {
     error: [
         {
@@ -25,4 +26,5 @@ const unitTests = {
         }
     ]
 };
+exports.default = unitTests;
 //# sourceMappingURL=error.test.js.map
