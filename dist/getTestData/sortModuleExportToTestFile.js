@@ -5,7 +5,7 @@ exports.default = createTestFiles;
 function createTestFiles(searchResults, testFilePattern) {
     // each directory passed from config dirs
     return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
-        console.log(`checking testFiles for dir ${searchDir} (${Object.keys(folders).length}`);
+        console.log(`checking testFiles for dir ${searchDir} (${Object.keys(folders).length})`);
         return Promise.resolve(Object.entries(folders).reduce((retDir, [fullPath, module]) => {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 1), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
             Object.entries(module).forEach(([key, exp]) => {
@@ -35,6 +35,9 @@ function createTestFiles(searchResults, testFilePattern) {
                         v: filteredExport.fFiles[func[0]],
                         vName: functionName
                     };
+                }
+                else {
+                    console.log(`no matching testcases for ${pathName}`);
                 }
                 return testFile;
             }, {});
