@@ -11,7 +11,7 @@ function createTestResult({ name, expectedOutcome, expectedSource }, preDefinedV
             expectedOutcome: expectedOutcome(preDefinedVariables, realOutcome),
             name,
             expectedSource
-        }, realOutcome, 'expectedOutcome');
+        }, preDefinedVariables, realOutcome, 'expectedOutcome');
     }
     const outcome = (0, validateOutcome_1.default)(expectedOutcome, expectedSource, realOutcome, result);
     return {
