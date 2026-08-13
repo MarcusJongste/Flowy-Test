@@ -25,3 +25,7 @@ const unitTests: test = {
         }
     ]
 };
+
+export {
+    unitTests as default
+}

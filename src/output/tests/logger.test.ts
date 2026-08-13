@@ -6,23 +6,23 @@ declare const consoleCount: number;
 const unitTests: test = {
     logger: [
         {
-            name: '1 error thrown',
+            name: 'Logging one fake Error',
             scenarios: {
                 scenario: {
                     console: () => {
-                        var originalLog = console.log;
-                        var consoleCount = 0;
+                        const originalLog = console.log;
+                        let consoleCount = 0;
                         console.log = (...args) => {
                             consoleCount++;
-                            originalLog(...args);
+                           // originalLog(...args);
                         }
-                        return originalLog;
+                        return { originalLog, getCount: () => consoleCount }
                     }
                 }
             },
             params: [{
                 unitTestResults: {
-                    myErrorTest: [
+                    myLoggerTest: [
                         {
                             message: 'successfully failed the test',
                             source: 'error',
@@ -36,15 +36,20 @@ const unitTests: test = {
                 numberOfSuccess: 0,
                 numberOfFailure: 1
             }],
-            expectedOutcome: () => {
-                console.log = originalLog as typeof console.log;
-                const consoleNum = consoleCount;
-                delete (global as any).originalLog;
-                delete (global as any).consoleCount;
-                return consoleNum === 2;
-
+            expectedOutcome: (predefined: {[k:string]:any}, outcome:any) => {
+                if (predefined.console !== undefined) {
+                    const { originalLog, getCount } = predefined.console;
+                    console.log = originalLog as typeof console.log;
+                    const consoleCount = getCount();
+                    return consoleCount === 3 ? true : false;
+                }
+                return false;
             },
-            expectedSource: 'result'
+            expectedSource: 'expectedOutcome'
         }
     ]
 };
+
+export {
+    unitTests as default
+}
