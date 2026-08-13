@@ -1,11 +1,11 @@
-function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error' = 'result', outcome: any, result: 'error' | 'result' = 'result'): 'success' | 'failure' {
+function validateOutcome(expectedOutcome: any, expectedSource: 'result' | 'error' | 'expectedOutcome' = 'result', outcome: any, result: 'error' | 'result' | 'expectedOutcome' = 'result'): 'success' | 'failure' {
     // how the result was gottten was not expected
     if (expectedSource && expectedSource !== result) {
         return 'failure';
     }
-    // expectedOutcome is a function run it and then validate
-    if (typeof expectedOutcome === 'function') {
-        return validateOutcome(expectedOutcome(), expectedSource, outcome, result);
+    // expectedOutcome was a function so now just validate expectedOutcome
+    if (result === 'expectedOutcome') {
+        return !!expectedOutcome ? 'success' : 'failure';
     }
     // not same type of variable
     if (expectedOutcome.constructor.name !== outcome.constructor.name) {
