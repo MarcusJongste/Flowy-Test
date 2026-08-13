@@ -4,23 +4,23 @@ exports.default = void 0;
 const unitTests = {
     logger: [
         {
-            name: '1 error thrown',
+            name: 'Logging one fake Error',
             scenarios: {
                 scenario: {
                     console: () => {
-                        var originalLog = console.log;
-                        var consoleCount = 0;
+                        const originalLog = console.log;
+                        let consoleCount = 0;
                         console.log = (...args) => {
                             consoleCount++;
                             originalLog(...args);
                         };
-                        return originalLog;
+                        return { originalLog, getCount: () => consoleCount };
                     }
                 }
             },
             params: [{
                     unitTestResults: {
-                        myErrorTest: [
+                        myLoggerTest: [
                             {
                                 message: 'successfully failed the test',
                                 source: 'error',
@@ -34,15 +34,12 @@ const unitTests = {
                     numberOfSuccess: 0,
                     numberOfFailure: 1
                 }],
-            expectedOutcome: () => {
-                if (originalLog) {
+            expectedOutcome: (predefined, outcome) => {
+                if (predefined.console !== undefined) {
+                    const { originalLog, getCount } = predefined.console;
                     console.log = originalLog;
-                    delete global.originalLog;
-                }
-                if (consoleCount) {
-                    const consoleNum = consoleCount;
-                    delete global.consoleCount;
-                    return consoleNum === 2 ? undefined : false;
+                    const consoleCount = getCount();
+                    return consoleCount === 2 ? outcome : false;
                 }
                 return null;
             },

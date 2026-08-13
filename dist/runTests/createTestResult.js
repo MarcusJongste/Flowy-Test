@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTestResult;
 const validateOutcome_1 = __importDefault(require("./validateOutcome"));
-function createTestResult({ name, expectedOutcome, expectedSource }, realOutcome, result = 'result') {
+function createTestResult({ name, expectedOutcome, expectedSource }, preDefinedVariables, realOutcome, result = 'result') {
     if (typeof expectedOutcome === 'function') {
         return createTestResult({
-            expectedOutcome: expectedOutcome(),
+            expectedOutcome: expectedOutcome(preDefinedVariables, realOutcome),
             name,
             expectedSource
         }, realOutcome, result);
