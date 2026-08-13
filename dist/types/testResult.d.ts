@@ -1,7 +1,7 @@
 interface testResult {
     [k: string]: any;
     message: string;
-    source: 'result' | 'error';
+    source: 'result' | 'error' | 'expectedOutcome';
     result: 'success' | 'failure';
     expected: any;
     outcome: any;

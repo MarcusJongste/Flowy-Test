@@ -39,11 +39,11 @@ const unitTests = {
                     const { originalLog, getCount } = predefined.console;
                     console.log = originalLog;
                     const consoleCount = getCount();
-                    return consoleCount === 2 ? outcome : false;
+                    return consoleCount === 3 ? outcome : false;
                 }
                 return null;
             },
-            expectedSource: 'result'
+            expectedSource: 'expectedOutcome'
         }
     ]
 };

@@ -1,7 +1,7 @@
 interface unitTest {
     name: string;
     expectedOutcome: any;
-    expectedSource?: 'result' | 'error';
+    expectedSource?: 'result' | 'error' | 'expectedOutcome';
     params?: Array<any>;
     scenarios?: {
         [k: string]: any;
