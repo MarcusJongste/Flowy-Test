@@ -7,24 +7,33 @@ interface tempTestFile {
     }
 }
 
-//interface of namespaces needed
+/**
+ * createTestFiles gets the found files, and matches tests with the correct variables which should be tested 
+ * @param {fileSearchResults} searchResults the results of the search containing all eligible files
+ * @param {RegExp} testFilePattern regular expression which determines testfiles from other.
+ * @returns {Promise<testFiles>} a promise to return testFiles an object with all functions and tests matched and combined.
+ */
 function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegExp): Promise<testFiles> {
 
     // each directory passed from config dirs
     return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
-        console.log(`checking testFiles for dir${searchDir}`);
         return Promise.resolve(Object.entries(folders).reduce((retDir: tempTestFile, [fullPath, module]): tempTestFile => {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\')+1),
                 folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
             Object.entries(module).forEach(([key, exp]: [string, any]) => {
+                if (Object.keys(exp).length === 0) {
+                    console.log(`Warning! module (${key}) is missing any export`);
+                }
                 if (isTest(testFilePattern, exp, fileName)) {
                     Object.entries(exp).forEach(([functionName, unitTest]: [string, unitTest[]]) => {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
                     });
                 } else if (typeof exp === 'function') {// currently like this
-                    const realKey = exp.name ?? fileName.substring(0,fileName.indexOf('.'));
+                    const realKey = exp.name ?? fileName.substring(0, fileName.indexOf('.'));
                     // if function
                     retDir.fFiles[`${fullPath}\\${realKey}`] = exp;
+                } else {
+                    console.log('currently only handling functions not variables');
                 }
             });
             return retDir;
@@ -42,8 +51,10 @@ function createTestFiles(searchResults: fileSearchResults, testFilePattern: RegE
                         testFile[func[0]] = {
                             unitTests: unitTest,
                             v: filteredExport.fFiles[func[0]],
-                            vName:functionName
+                            vName: functionName
                         }
+                    } else {
+                        console.log(`no matching testcases for ${pathName}`)
                     }
                     return testFile;
                 }, {});
