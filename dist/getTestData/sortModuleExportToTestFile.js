@@ -10,12 +10,13 @@ exports.default = createTestFiles;
 function createTestFiles(searchResults, testFilePattern) {
     // each directory passed from config dirs
     return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
-        console.log(`checking testFiles for dir ${searchDir} (${Object.keys(folders).length})`);
         return Promise.resolve(Object.entries(folders).reduce((retDir, [fullPath, module]) => {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 1), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
             Object.entries(module).forEach(([key, exp]) => {
+                if (Object.keys(exp).length === 0) {
+                    console.log(`Warning! module (${key}) is missing any export`);
+                }
                 if (isTest(testFilePattern, exp, fileName)) {
-                    console.log(`${fileName} matching the regular test expression`);
                     Object.entries(exp).forEach(([functionName, unitTest]) => {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
                     });
@@ -32,7 +33,6 @@ function createTestFiles(searchResults, testFilePattern) {
             return retDir;
         }, { testFiles: {}, fFiles: {} }))
             .then((filteredExport) => {
-            console.log('filteredExport size:', searchDir, Object.keys(filteredExport.testFiles).length);
             return Object.entries(filteredExport.testFiles).reduce((testFile, [pathName, unitTest]) => {
                 const functionName = pathName.substring(pathName.lastIndexOf('\\') + 1), functionMatcher = new RegExp(`${functionName}$`), func = Object.keys(filteredExport.fFiles).filter(key => functionMatcher.test(key));
                 if (func.length > 1) {

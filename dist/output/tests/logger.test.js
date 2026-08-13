@@ -12,7 +12,7 @@ const unitTests = {
                         let consoleCount = 0;
                         console.log = (...args) => {
                             consoleCount++;
-                            originalLog(...args);
+                            // originalLog(...args);
                         };
                         return { originalLog, getCount: () => consoleCount };
                     }
