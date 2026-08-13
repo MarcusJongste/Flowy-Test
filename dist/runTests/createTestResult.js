@@ -8,10 +8,10 @@ const validateOutcome_1 = __importDefault(require("./validateOutcome"));
 function createTestResult({ name, expectedOutcome, expectedSource }, preDefinedVariables, realOutcome, result = 'result') {
     if (typeof expectedOutcome === 'function') {
         return createTestResult({
-            expectedOutcome: expectedOutcome(preDefinedVariables, realOutcome, 'expectedOutcome'),
+            expectedOutcome: expectedOutcome(preDefinedVariables, realOutcome),
             name,
             expectedSource
-        }, realOutcome, result);
+        }, realOutcome, 'expectedOutcome');
     }
     const outcome = (0, validateOutcome_1.default)(expectedOutcome, expectedSource, realOutcome, result);
     return {
