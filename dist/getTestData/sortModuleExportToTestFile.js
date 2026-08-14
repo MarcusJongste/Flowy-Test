@@ -12,10 +12,10 @@ function createTestFiles(searchResults, testFilePattern) {
     return Promise.all(Object.entries(searchResults).map(([searchDir, folders]) => {
         return Promise.resolve(Object.entries(folders).reduce((retDir, [fullPath, module]) => {
             const fileName = fullPath.substring(fullPath.lastIndexOf('\\') + 1), folderName = fullPath.substring(0, fullPath.lastIndexOf('\\'));
+            if (Object.keys(module).length === 0) {
+                console.log(`Warning! module (${fileName}) is missing any export`);
+            }
             Object.entries(module).forEach(([key, exp]) => {
-                if (Object.keys(exp).length === 0) {
-                    console.log(`Warning! module (${key}) is missing any export`);
-                }
                 if (isTest(testFilePattern, exp, fileName)) {
                     Object.entries(exp).forEach(([functionName, unitTest]) => {
                         retDir.testFiles[`${folderName}\\${functionName}`] = retDir.testFiles[`${folderName}\\${functionName}`] ? [...retDir.testFiles[`${folderName}\\${functionName}`], ...unitTest] : unitTest;
